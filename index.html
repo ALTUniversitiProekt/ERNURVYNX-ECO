@@ -1524,6 +1524,519 @@ footer{
         display:none;
     }
 }
+
+/* =========================================================
+   TABIĞAT 2.0 — ECO PLATFORM ADDITIONS
+   ========================================================= */
+
+:root{
+    --gold:#e8ff9a;
+    --blue:#74d8ff;
+    --purple:#b69cff;
+}
+
+.glass-panel{
+    border:1px solid var(--line);
+    background:
+        radial-gradient(circle at 85% 0%,rgba(155,225,93,.08),transparent 30%),
+        linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+    border-radius:28px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(18px);
+}
+
+.eco-platform-grid{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:18px;
+}
+
+.eco-map{
+    min-height:500px;
+    padding:28px;
+    position:relative;
+    overflow:hidden;
+}
+
+.kz-map{
+    position:relative;
+    height:390px;
+    margin-top:15px;
+    border-radius:24px;
+    background:
+        radial-gradient(circle at 20% 30%,rgba(155,225,93,.08),transparent 25%),
+        radial-gradient(circle at 75% 65%,rgba(116,216,255,.06),transparent 28%),
+        rgba(0,0,0,.13);
+    border:1px solid var(--line);
+    overflow:hidden;
+}
+
+.kz-silhouette{
+    position:absolute;
+    inset:42px 70px 38px;
+    clip-path:polygon(
+        3% 35%, 11% 28%, 20% 30%, 29% 18%, 42% 22%,
+        50% 12%, 62% 18%, 70% 8%, 82% 17%, 94% 28%,
+        88% 40%, 96% 51%, 88% 62%, 78% 67%, 72% 79%,
+        60% 72%, 52% 88%, 42% 77%, 31% 84%, 22% 71%,
+        13% 73%, 8% 59%, 1% 52%
+    );
+    background:
+        linear-gradient(145deg,rgba(155,225,93,.28),rgba(39,112,67,.12));
+    border:1px solid rgba(155,225,93,.24);
+    box-shadow:inset 0 0 70px rgba(155,225,93,.08);
+}
+
+.map-grid-line{
+    position:absolute;
+    background:rgba(255,255,255,.045);
+}
+.map-grid-line.h{left:0;right:0;height:1px}
+.map-grid-line.v{top:0;bottom:0;width:1px}
+.map-grid-line.h1{top:25%}.map-grid-line.h2{top:50%}.map-grid-line.h3{top:75%}
+.map-grid-line.v1{left:25%}.map-grid-line.v2{left:50%}.map-grid-line.v3{left:75%}
+
+.city-dot{
+    position:absolute;
+    z-index:4;
+    width:17px;
+    height:17px;
+    border:3px solid rgba(7,20,13,.95);
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 0 7px rgba(155,225,93,.09),0 0 30px rgba(155,225,93,.4);
+    cursor:pointer;
+    transition:.25s;
+}
+.city-dot:hover{transform:scale(1.35)}
+.city-dot::after{
+    content:"";
+    position:absolute;
+    width:7px;height:7px;
+    left:2px;top:2px;
+    border-radius:50%;
+    background:white;
+    opacity:.45;
+}
+.city-label{
+    position:absolute;
+    z-index:5;
+    transform:translate(12px,-3px);
+    white-space:nowrap;
+    font-size:10px;
+    color:#b7c5bb;
+    pointer-events:none;
+}
+.city-almaty{left:39%;top:65%}
+.city-astana{left:54%;top:36%}
+.city-shymkent{left:35%;top:78%}
+.city-taraz{left:43%;top:75%}
+.city-karaganda{left:61%;top:48%}
+.city-aktobe{left:23%;top:46%}
+.city-kzylorda{left:31%;top:66%}
+.city-oskemen{left:82%;top:39%}
+
+.city-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+.city-stat{
+    padding:14px;
+    border:1px solid var(--line);
+    border-radius:16px;
+    background:rgba(255,255,255,.025);
+}
+.city-stat strong{display:block;font-size:18px;color:var(--green)}
+.city-stat span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+
+.side-stack{
+    display:grid;
+    gap:18px;
+}
+
+.challenge-card{
+    padding:28px;
+    position:relative;
+    overflow:hidden;
+}
+.challenge-card::before{
+    content:"01";
+    position:absolute;
+    right:20px;
+    top:8px;
+    font-size:90px;
+    font-weight:900;
+    color:rgba(255,255,255,.035);
+}
+.challenge-icon{
+    width:58px;height:58px;
+    display:grid;place-items:center;
+    border-radius:18px;
+    background:rgba(155,225,93,.09);
+    font-size:28px;
+    margin-bottom:22px;
+}
+.challenge-progress{
+    margin-top:20px;
+}
+.challenge-progress-top{
+    display:flex;
+    justify-content:space-between;
+    color:#89978e;
+    font-size:10px;
+    margin-bottom:8px;
+}
+.challenge-reward{
+    display:inline-flex;
+    margin-top:18px;
+    padding:7px 10px;
+    border-radius:100px;
+    background:rgba(232,255,154,.07);
+    color:var(--gold);
+    font-size:10px;
+    font-weight:900;
+}
+
+.eco-score-card{
+    padding:28px;
+}
+.score-ring{
+    width:150px;height:150px;
+    margin:10px auto 22px;
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    background:
+        radial-gradient(circle at center,#0b1b11 0 57%,transparent 58%),
+        conic-gradient(var(--green) 0 72%,rgba(255,255,255,.06) 72% 100%);
+    box-shadow:0 0 50px rgba(155,225,93,.10);
+}
+.score-ring strong{font-size:34px}
+.score-ring span{display:block;color:var(--muted);font-size:9px;text-align:center;margin-top:2px}
+.score-metrics{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+.score-metric{
+    padding:12px 8px;
+    text-align:center;
+    border:1px solid var(--line);
+    border-radius:14px;
+}
+.score-metric strong{display:block;font-size:15px}
+.score-metric span{display:block;color:var(--muted);font-size:9px;margin-top:4px}
+
+.activity-layout{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:20px;
+}
+.activity-feed{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+.activity-item{
+    display:grid;
+    grid-template-columns:40px 1fr auto;
+    gap:12px;
+    align-items:center;
+    padding:15px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:17px;
+}
+.activity-avatar{
+    width:40px;height:40px;
+    display:grid;place-items:center;
+    border-radius:13px;
+    background:rgba(155,225,93,.08);
+}
+.activity-item strong{font-size:12px}
+.activity-item p{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
+.activity-time{font-size:9px;color:#5e6c63}
+
+.mission{
+    padding:30px;
+}
+.mission-top{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:end;
+    margin-bottom:25px;
+}
+.mission-percent{
+    font-size:42px;
+    font-weight:900;
+    color:var(--green);
+    letter-spacing:-.06em;
+}
+.mission-goals{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+.mission-goal{
+    padding:17px;
+    border:1px solid var(--line);
+    border-radius:17px;
+    background:rgba(255,255,255,.025);
+}
+.mission-goal strong{display:block;font-size:18px}
+.mission-goal span{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.mission-bar{
+    height:9px;
+    border-radius:100px;
+    background:rgba(255,255,255,.06);
+    overflow:hidden;
+}
+.mission-bar span{
+    display:block;height:100%;
+    width:68%;
+    border-radius:100px;
+    background:linear-gradient(90deg,#58bd61,#d8ff74);
+    box-shadow:0 0 25px rgba(155,225,93,.2);
+}
+
+.project-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+.project-card{
+    padding:24px;
+    min-height:250px;
+    border:1px solid var(--line);
+    border-radius:23px;
+    background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    transition:.3s;
+    position:relative;
+    overflow:hidden;
+}
+.project-card:hover{transform:translateY(-6px);border-color:var(--line2)}
+.project-tag{
+    display:inline-flex;
+    padding:6px 9px;
+    border-radius:100px;
+    font-size:9px;
+    font-weight:900;
+    color:var(--green);
+    background:rgba(155,225,93,.07);
+}
+.project-card h3{font-size:18px;margin:25px 0 9px}
+.project-card p{font-size:12px;color:var(--muted);line-height:1.7}
+.project-meta{
+    position:absolute;
+    left:24px;right:24px;bottom:22px;
+    display:flex;
+    justify-content:space-between;
+    font-size:10px;
+    color:#68776e;
+}
+
+.achievements{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+.badge-card{
+    padding:18px 12px;
+    text-align:center;
+    border:1px solid var(--line);
+    border-radius:19px;
+    background:rgba(255,255,255,.025);
+    transition:.3s;
+}
+.badge-card:hover{transform:translateY(-5px)}
+.badge-icon{
+    width:55px;height:55px;
+    margin:0 auto 13px;
+    display:grid;place-items:center;
+    border-radius:17px;
+    background:rgba(155,225,93,.08);
+    font-size:25px;
+}
+.badge-card strong{display:block;font-size:11px}
+.badge-card span{display:block;font-size:9px;color:var(--muted);margin-top:5px;line-height:1.4}
+.badge-card.locked{opacity:.38;filter:grayscale(1)}
+
+.profile-box{
+    display:grid;
+    grid-template-columns:.7fr 1.3fr;
+    gap:35px;
+    padding:35px;
+}
+.profile-hero{
+    padding:25px;
+    border-radius:23px;
+    background:radial-gradient(circle at 50% 0,rgba(155,225,93,.11),transparent 45%),rgba(255,255,255,.02);
+    border:1px solid var(--line);
+    text-align:center;
+}
+.profile-avatar{
+    width:92px;height:92px;
+    display:grid;place-items:center;
+    margin:0 auto 18px;
+    border-radius:28px;
+    font-size:42px;
+    background:linear-gradient(145deg,#baf375,#4eaf5a);
+    color:#07140d;
+}
+.profile-name{font-size:22px;font-weight:900}
+.profile-city{font-size:11px;color:var(--muted);margin-top:5px}
+.profile-right{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+.profile-stat{
+    padding:20px;
+    border:1px solid var(--line);
+    border-radius:18px;
+    background:rgba(255,255,255,.025);
+}
+.profile-stat span{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}
+.profile-stat strong{font-size:24px}
+
+.ai-launch{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:150;
+    width:58px;height:58px;
+    border:1px solid rgba(155,225,93,.35);
+    border-radius:19px;
+    background:linear-gradient(145deg,#a9ee69,#4bbd65);
+    color:#07140d;
+    font-size:24px;
+    box-shadow:0 15px 45px rgba(0,0,0,.35),0 0 35px rgba(155,225,93,.16);
+    transition:.3s;
+}
+.ai-launch:hover{transform:translateY(-5px) rotate(-4deg)}
+.ai-panel{
+    position:fixed;
+    right:24px;
+    bottom:95px;
+    z-index:151;
+    width:min(390px,calc(100% - 30px));
+    height:520px;
+    display:none;
+    flex-direction:column;
+    border:1px solid var(--line);
+    border-radius:25px;
+    background:rgba(7,20,13,.96);
+    backdrop-filter:blur(24px);
+    box-shadow:0 40px 100px rgba(0,0,0,.55);
+    overflow:hidden;
+}
+.ai-panel.show{display:flex}
+.ai-head{
+    padding:17px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid var(--line);
+}
+.ai-head strong{font-size:13px}
+.ai-head span{font-size:9px;color:var(--green)}
+.ai-close{
+    border:0;background:transparent;color:white;font-size:18px;
+}
+.ai-messages{
+    flex:1;
+    padding:17px;
+    overflow:auto;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.ai-message{
+    max-width:88%;
+    padding:11px 13px;
+    border-radius:15px;
+    font-size:11px;
+    line-height:1.6;
+}
+.ai-message.bot{
+    align-self:flex-start;
+    background:rgba(255,255,255,.045);
+    border:1px solid var(--line);
+    color:#b6c2b9;
+}
+.ai-message.user{
+    align-self:flex-end;
+    background:rgba(155,225,93,.11);
+    border:1px solid rgba(155,225,93,.2);
+}
+.ai-quick{
+    display:flex;
+    gap:7px;
+    padding:0 15px 10px;
+    overflow:auto;
+}
+.ai-quick button{
+    flex:0 0 auto;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    color:#9eaca2;
+    border-radius:100px;
+    padding:7px 10px;
+    font-size:9px;
+}
+.ai-form{
+    display:flex;
+    gap:8px;
+    padding:12px;
+    border-top:1px solid var(--line);
+}
+.ai-form input{
+    flex:1;
+    min-width:0;
+    height:42px;
+    padding:0 12px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:rgba(0,0,0,.18);
+    color:white;
+    outline:none;
+}
+.ai-form button{
+    width:42px;height:42px;
+    border:0;border-radius:12px;
+    background:var(--green);
+    color:#07140d;
+    font-weight:900;
+}
+
+.city-modal-info{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:20px;
+}
+
+@media(max-width:980px){
+    .eco-platform-grid,.activity-layout,.profile-box{grid-template-columns:1fr}
+    .project-grid{grid-template-columns:repeat(2,1fr)}
+    .achievements{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:640px){
+    .eco-map{padding:18px}
+    .kz-map{height:320px}
+    .kz-silhouette{inset:45px 25px 40px}
+    .city-stats{grid-template-columns:repeat(2,1fr)}
+    .mission-goals,.profile-right{grid-template-columns:1fr 1fr}
+    .project-grid{grid-template-columns:1fr}
+    .achievements{grid-template-columns:repeat(2,1fr)}
+    .ai-launch{right:15px;bottom:15px}
+    .ai-panel{right:15px;bottom:85px}
+}
+
 </style>
 </head>
 
@@ -2279,6 +2792,290 @@ footer{
     </div>
 
 </section>
+
+
+<!-- =======================================================
+     TABIĞAT 2.0 — KAZAKHSTAN ECO PLATFORM
+     ======================================================= -->
+
+<section class="section" id="eco-map">
+    <div class="container">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-kicker">KAZAKHSTAN ECO MAP</div>
+                <h2 class="section-title">Қазақстанның жасыл картасы.</h2>
+            </div>
+            <p class="section-description">
+                Қалалардағы экологиялық белсенділікті бір экраннан көр.
+                Қала белгісін басып, оның демо көрсеткіштерін аш.
+            </p>
+        </div>
+
+        <div class="eco-platform-grid">
+            <div class="glass-panel eco-map reveal">
+                <div style="display:flex;justify-content:space-between;gap:15px;align-items:center">
+                    <div>
+                        <strong style="font-size:18px">Eco Map</strong>
+                        <p style="font-size:10px;color:var(--muted);margin-top:5px">8 қала • LIVE demo</p>
+                    </div>
+                    <span class="live-status"><span class="live-dot"></span> LIVE</span>
+                </div>
+
+                <div class="kz-map" id="kzMap">
+                    <div class="map-grid-line h h1"></div>
+                    <div class="map-grid-line h h2"></div>
+                    <div class="map-grid-line h h3"></div>
+                    <div class="map-grid-line v v1"></div>
+                    <div class="map-grid-line v v2"></div>
+                    <div class="map-grid-line v v3"></div>
+                    <div class="kz-silhouette"></div>
+
+                    <button class="city-dot city-almaty" data-city="Алматы" aria-label="Алматы"></button><span class="city-label" style="left:39%;top:65%">Алматы</span>
+                    <button class="city-dot city-astana" data-city="Астана" aria-label="Астана"></button><span class="city-label" style="left:54%;top:36%">Астана</span>
+                    <button class="city-dot city-shymkent" data-city="Шымкент" aria-label="Шымкент"></button><span class="city-label" style="left:35%;top:78%">Шымкент</span>
+                    <button class="city-dot city-taraz" data-city="Тараз" aria-label="Тараз"></button><span class="city-label" style="left:43%;top:75%">Тараз</span>
+                    <button class="city-dot city-karaganda" data-city="Қарағанды" aria-label="Қарағанды"></button><span class="city-label" style="left:61%;top:48%">Қарағанды</span>
+                    <button class="city-dot city-aktobe" data-city="Ақтөбе" aria-label="Ақтөбе"></button><span class="city-label" style="left:23%;top:46%">Ақтөбе</span>
+                    <button class="city-dot city-kzylorda" data-city="Қызылорда" aria-label="Қызылорда"></button><span class="city-label" style="left:31%;top:66%">Қызылорда</span>
+                    <button class="city-dot city-oskemen" data-city="Өскемен" aria-label="Өскемен"></button><span class="city-label" style="left:82%;top:39%">Өскемен</span>
+                </div>
+
+                <div class="city-stats">
+                    <div class="city-stat"><strong>4,820</strong><span>Алматы • мүше</span></div>
+                    <div class="city-stat"><strong>3,640</strong><span>Астана • мүше</span></div>
+                    <div class="city-stat"><strong>2,910</strong><span>Шымкент • мүше</span></div>
+                    <div class="city-stat"><strong>1,240</strong><span>Тараз • мүше</span></div>
+                </div>
+            </div>
+
+            <div class="side-stack">
+                <div class="glass-panel challenge-card reveal">
+                    <div class="challenge-icon">🎯</div>
+                    <div class="section-kicker" style="margin-bottom:9px">DAILY ECO CHALLENGE</div>
+                    <h3 style="font-size:25px">Бүгін пластикті азайт.</h3>
+                    <p style="color:var(--muted);font-size:12px;line-height:1.7;margin-top:10px">
+                        Бір күнде бір реттік пластиктің орнына қайта қолданылатын затты таңда.
+                    </p>
+                    <div class="challenge-progress">
+                        <div class="challenge-progress-top"><span>Қатысушылар</span><strong id="challengeCount">1,284 / 2,000</strong></div>
+                        <div class="progress"><div class="progress-bar" id="challengeProgress" style="width:64.2%"></div></div>
+                    </div>
+                    <button class="btn btn-primary" id="challengeBtn" style="margin-top:18px;width:100%">Challenge-ге қосылу →</button>
+                    <span class="challenge-reward">+50 ECO SCORE</span>
+                </div>
+
+                <div class="glass-panel eco-score-card reveal">
+                    <div class="section-kicker" style="margin-bottom:6px">YOUR ECO SCORE</div>
+                    <div class="score-ring"><div><strong id="heroEcoScore">720</strong><span>eco points</span></div></div>
+                    <div class="score-metrics">
+                        <div class="score-metric"><strong id="profileActionsMini">12</strong><span>Әрекет</span></div>
+                        <div class="score-metric"><strong id="profileTreesMini">8</strong><span>Ағаш</span></div>
+                        <div class="score-metric"><strong id="profileWasteMini">34</strong><span>Кг</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="activity">
+    <div class="container">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-kicker">LIVE ACTIVITY</div>
+                <h2 class="section-title">Жақсылық қазір болып жатыр.</h2>
+            </div>
+            <p class="section-description">Қауымдастықтағы экологиялық әрекеттердің демо лентасы.</p>
+        </div>
+
+        <div class="activity-layout">
+            <div class="glass-panel mission reveal">
+                <div class="mission-top">
+                    <div>
+                        <div class="section-kicker" style="margin-bottom:8px">KAZAKHSTAN ECO MISSION</div>
+                        <h3 style="font-size:25px">2030-ға дейін жасыл орта.</h3>
+                        <p style="font-size:11px;color:var(--muted);line-height:1.7;margin-top:10px">
+                            Қауымдастықтың ортақ демо мақсаты: ағаш отырғызу,
+                            тазалық акциялары және қалдықтарды жинау.
+                        </p>
+                    </div>
+                    <div class="mission-percent">68%</div>
+                </div>
+                <div class="mission-bar"><span></span></div>
+                <div class="mission-goals">
+                    <div class="mission-goal"><strong>100K</strong><span>ағаш мақсаты</span></div>
+                    <div class="mission-goal"><strong>80K</strong><span>кг қалдық</span></div>
+                    <div class="mission-goal"><strong>300</strong><span>км² аумақ</span></div>
+                </div>
+            </div>
+
+            <div class="activity-feed reveal" id="activityFeed"></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="projects">
+    <div class="container">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-kicker">YOUTH PROJECTS</div>
+                <h2 class="section-title">Жастардың экологиялық идеялары.</h2>
+            </div>
+            <p class="section-description">
+                Өз идеяңды ұсын. Қауымдастық оны келесі үлкен жобаға айналдыруға көмектеседі.
+            </p>
+        </div>
+
+        <div class="project-grid">
+            <article class="project-card reveal">
+                <span class="project-tag">ALMATY • RECYCLING</span>
+                <h3>EcoBox</h3>
+                <p>Мектептер мен университеттерге арналған шағын сұрыптау станцияларын жасау идеясы.</p>
+                <div class="project-meta"><span>🌱 84 қолдау</span><span>ACTIVE</span></div>
+            </article>
+            <article class="project-card reveal">
+                <span class="project-tag">TARAZ • GREEN CITY</span>
+                <h3>Green Taraz</h3>
+                <p>Қаладағы бос аумақтарды шағын жасыл аймақтарға айналдыруға арналған жастар бастамасы.</p>
+                <div class="project-meta"><span>🌳 61 қолдау</span><span>ACTIVE</span></div>
+            </article>
+            <article class="project-card reveal">
+                <span class="project-tag">ASTANA • ECO MEDIA</span>
+                <h3>1 Minute Eco</h3>
+                <p>Экологиялық әдеттерді қысқа видео арқылы жастарға түсіндіретін медиа жоба.</p>
+                <div class="project-meta"><span>🎥 49 қолдау</span><span>GROWING</span></div>
+            </article>
+        </div>
+
+        <div style="text-align:center;margin-top:28px" class="reveal">
+            <button class="btn btn-secondary" id="projectIdeaBtn">💡 Өз жобамды ұсыну</button>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="achievements">
+    <div class="container">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-kicker">ACHIEVEMENTS</div>
+                <h2 class="section-title">Әр әрекет — жаңа белгі.</h2>
+            </div>
+            <p class="section-description">Белсенділігің артқан сайын жаңа Eco Badge ашылады.</p>
+        </div>
+
+        <div class="achievements">
+            <div class="badge-card reveal"><div class="badge-icon">🌱</div><strong>First Step</strong><span>Алғашқы әрекет</span></div>
+            <div class="badge-card reveal"><div class="badge-icon">🌳</div><strong>Tree Keeper</strong><span>10 ағаш отырғызу</span></div>
+            <div class="badge-card reveal"><div class="badge-icon">♻️</div><strong>Recycler</strong><span>100 кг сұрыптау</span></div>
+            <div class="badge-card reveal"><div class="badge-icon">💧</div><strong>Water Guard</strong><span>Су жобасына қатысу</span></div>
+            <div class="badge-card locked reveal"><div class="badge-icon">🏆</div><strong>Eco Legend</strong><span>5,000 ECO SCORE</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="section" id="profile">
+    <div class="container">
+        <div class="section-head reveal">
+            <div>
+                <div class="section-kicker">ECO PROFILE</div>
+                <h2 class="section-title">Сенің экологиялық ізің.</h2>
+            </div>
+            <p class="section-description">Қауымдастыққа қосылғаннан кейін бұл профиль жергілікті деректермен толығады.</p>
+        </div>
+
+        <div class="glass-panel profile-box reveal">
+            <div class="profile-hero">
+                <div class="profile-avatar" id="profileAvatar">🌱</div>
+                <div class="profile-name" id="profileName">Қонақ</div>
+                <div class="profile-city" id="profileCity">Қала әлі таңдалмаған</div>
+                <div style="margin-top:18px">
+                    <span class="project-tag" id="profileFocus">ECO EXPLORER</span>
+                </div>
+            </div>
+            <div class="profile-right">
+                <div class="profile-stat"><span>ECO SCORE</span><strong id="profileScore">720</strong></div>
+                <div class="profile-stat"><span>ҚАТЫСҚАН АКЦИЯ</span><strong id="profileActions">12</strong></div>
+                <div class="profile-stat"><span>ОТЫРҒЫЗҒАН АҒАШ</span><strong id="profileTrees">8</strong></div>
+                <div class="profile-stat"><span>ЖИНАҒАН ҚАЛДЫҚ, КГ</span><strong id="profileWaste">34</strong></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CITY MODAL -->
+<div class="modal" id="cityModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <div>
+                <div class="section-kicker" style="margin-bottom:7px">ECO CITY</div>
+                <h3 id="cityModalTitle">Алматы</h3>
+            </div>
+            <button class="modal-close" id="cityModalClose">×</button>
+        </div>
+        <p style="color:var(--muted);font-size:12px;line-height:1.7">
+            Бұл қала бойынша TABIĞAT платформасының демонстрациялық экологиялық көрсеткіштері.
+        </p>
+        <div class="city-modal-info">
+            <div class="detail"><span>Қатысушылар</span><strong id="cityMembers">4,820</strong></div>
+            <div class="detail"><span>ECO SCORE</span><strong id="cityScore">128K</strong></div>
+            <div class="detail"><span>Ағаш</span><strong id="cityTrees">18,240</strong></div>
+            <div class="detail"><span>Тазалық акциясы</span><strong id="cityActions">740</strong></div>
+        </div>
+    </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="modal" id="projectModal">
+    <div class="modal-box">
+        <div class="modal-head">
+            <div>
+                <div class="section-kicker" style="margin-bottom:7px">YOUTH PROJECT</div>
+                <h3>Жобаңды ұсын</h3>
+            </div>
+            <button class="modal-close" id="projectModalClose">×</button>
+        </div>
+        <form class="form" id="projectIdeaForm">
+            <div class="field">
+                <label>Жоба атауы</label>
+                <input id="ideaName" required placeholder="Мысалы: Green Campus">
+            </div>
+            <div class="field">
+                <label>Қала</label>
+                <select id="ideaCity" required>
+                    <option value="">Қала таңда</option>
+                    <option>Алматы</option><option>Астана</option><option>Шымкент</option>
+                    <option>Тараз</option><option>Қарағанды</option><option>Ақтөбе</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Идея</label>
+                <textarea id="ideaText" required placeholder="Жоба не үшін керек және қалай жұмыс істейді?"></textarea>
+            </div>
+            <button class="btn btn-primary form-submit" type="submit">Жобаны сақтау →</button>
+        </form>
+    </div>
+</div>
+
+<!-- AI ASSISTANT -->
+<button class="ai-launch" id="aiLaunch" aria-label="Eco AI Assistant">✦</button>
+<div class="ai-panel" id="aiPanel">
+    <div class="ai-head">
+        <div><strong>Eco AI Assistant</strong><span style="display:block;margin-top:3px">TABIĞAT GUIDE • ONLINE</span></div>
+        <button class="ai-close" id="aiClose">×</button>
+    </div>
+    <div class="ai-messages" id="aiMessages">
+        <div class="ai-message bot">Сәлем! 🌱 Мен TABIĞAT-тың Eco Assistant-імін. Қала тазалығы, ағаш отырғызу, қалдықтарды сұрыптау немесе жоба идеясы туралы сұрай аласың.</div>
+    </div>
+    <div class="ai-quick">
+        <button data-ai="Қалай қосыламын?">Қалай қосыламын?</button>
+        <button data-ai="Eco Score қалай есептеледі?">Eco Score</button>
+        <button data-ai="Жоба ұсынғым келеді">Жоба ұсыну</button>
+    </div>
+    <form class="ai-form" id="aiForm">
+        <input id="aiInput" autocomplete="off" placeholder="Сұрағыңды жаз...">
+        <button type="submit">↑</button>
+    </form>
+</div>
 
 </main>
 
@@ -4047,6 +4844,297 @@ document.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   TABIĞAT 2.0 — PLATFORM ENGINE
+   ========================================================= */
+
+const cityData = {
+    "Алматы":{members:"4,820",score:"128K",trees:"18,240",actions:"740"},
+    "Астана":{members:"3,640",score:"104K",trees:"14,880",actions:"610"},
+    "Шымкент":{members:"2,910",score:"86K",trees:"11,520",actions:"520"},
+    "Тараз":{members:"1,240",score:"42K",trees:"5,940",actions:"280"},
+    "Қарағанды":{members:"1,080",score:"39K",trees:"4,820",actions:"245"},
+    "Ақтөбе":{members:"920",score:"31K",trees:"3,760",actions:"210"},
+    "Қызылорда":{members:"740",score:"26K",trees:"2,980",actions:"170"},
+    "Өскемен":{members:"680",score:"24K",trees:"2,740",actions:"155"}
+};
+
+document.querySelectorAll(".city-dot").forEach(dot=>{
+    dot.addEventListener("click",()=>{
+        const city = dot.dataset.city;
+        const data = cityData[city] || cityData["Алматы"];
+        document.getElementById("cityModalTitle").textContent = city;
+        document.getElementById("cityMembers").textContent = data.members;
+        document.getElementById("cityScore").textContent = data.score;
+        document.getElementById("cityTrees").textContent = data.trees;
+        document.getElementById("cityActions").textContent = data.actions;
+        document.getElementById("cityModal").classList.add("show");
+        document.body.classList.add("modal-open");
+    });
+});
+
+const cityModal = document.getElementById("cityModal");
+document.getElementById("cityModalClose").addEventListener("click",()=>{
+    cityModal.classList.remove("show");
+    document.body.classList.remove("modal-open");
+});
+cityModal.addEventListener("click",e=>{
+    if(e.target===cityModal){
+        cityModal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+    }
+});
+
+/* DAILY CHALLENGE */
+const challengeBtn = document.getElementById("challengeBtn");
+let challengeJoined = localStorage.getItem("tabigat_challenge") === "1";
+function updateChallenge(){
+    if(challengeJoined){
+        challengeBtn.textContent = "✓ Challenge орындалды";
+        challengeBtn.disabled = true;
+        challengeBtn.style.opacity = ".65";
+        document.getElementById("challengeCount").textContent = "1,285 / 2,000";
+        document.getElementById("challengeProgress").style.width = "64.25%";
+    }
+}
+challengeBtn.addEventListener("click",()=>{
+    challengeJoined = true;
+    localStorage.setItem("tabigat_challenge","1");
+    updateChallenge();
+    showToast("Eco Challenge","Керемет! +50 ECO SCORE қосылды.");
+    updateProfileData(50);
+});
+updateChallenge();
+
+/* LIVE ACTIVITY */
+const activities = [
+    ["🌱","Аружан","Алматыда 12 ағаш отырғызды","2 мин бұрын"],
+    ["♻️","Данияр","35 кг қалдықты сұрыптады","6 мин бұрын"],
+    ["🧹","Айша","Тараздағы тазалық акциясына қосылды","11 мин бұрын"],
+    ["💧","Мадина","Су ресурстары жобасын қолдады","18 мин бұрын"],
+    ["🎥","Әли","Eco Media-ға жаңа видео қосты","24 мин бұрын"],
+    ["🌳","Жансая","Community Tree-ге жаңа үлес қосты","31 мин бұрын"]
+];
+
+function renderActivity(){
+    const feed = document.getElementById("activityFeed");
+    feed.innerHTML = activities.map(item=>`
+        <div class="activity-item">
+            <div class="activity-avatar">${item[0]}</div>
+            <div><strong>${item[1]}</strong><p>${item[2]}</p></div>
+            <div class="activity-time">${item[3]}</div>
+        </div>
+    `).join("");
+}
+renderActivity();
+
+/* USER ECO PROFILE */
+function getProfile(){
+    try{
+        return JSON.parse(localStorage.getItem("tabigat_profile") || "null");
+    }catch(e){
+        return null;
+    }
+}
+
+function saveProfile(profile){
+    localStorage.setItem("tabigat_profile",JSON.stringify(profile));
+}
+
+function updateProfileData(scoreBonus=0){
+    const existing = getProfile();
+    if(existing){
+        existing.score = Math.max(0,(existing.score || 720) + scoreBonus);
+        saveProfile(existing);
+        renderProfile();
+    }else{
+        document.getElementById("profileScore").textContent = 720 + scoreBonus;
+        document.getElementById("heroEcoScore").textContent = 720 + scoreBonus;
+    }
+}
+
+function renderProfile(){
+    const p = getProfile();
+    if(!p){
+        document.getElementById("profileName").textContent = "Қонақ";
+        document.getElementById("profileCity").textContent = "Қала әлі таңдалмаған";
+        return;
+    }
+    const score = p.score || 720;
+    const actions = p.actions || 12;
+    const trees = p.trees || 8;
+    const waste = p.waste || 34;
+
+    document.getElementById("profileName").textContent = p.name || "Қонақ";
+    document.getElementById("profileCity").textContent = p.city || "Қазақстан";
+    document.getElementById("profileFocus").textContent =
+        (p.interests && p.interests[0]) ? p.interests[0].toUpperCase() : "ECO EXPLORER";
+    document.getElementById("profileScore").textContent = score.toLocaleString();
+    document.getElementById("profileActions").textContent = actions;
+    document.getElementById("profileTrees").textContent = trees;
+    document.getElementById("profileWaste").textContent = waste;
+    document.getElementById("heroEcoScore").textContent = score;
+    document.getElementById("profileActionsMini").textContent = actions;
+    document.getElementById("profileTreesMini").textContent = trees;
+    document.getElementById("profileWasteMini").textContent = waste;
+}
+renderProfile();
+
+/* PROJECT IDEA MODAL */
+const projectModal = document.getElementById("projectModal");
+document.getElementById("projectIdeaBtn").addEventListener("click",()=>{
+    projectModal.classList.add("show");
+    document.body.classList.add("modal-open");
+});
+document.getElementById("projectModalClose").addEventListener("click",()=>{
+    projectModal.classList.remove("show");
+    document.body.classList.remove("modal-open");
+});
+projectModal.addEventListener("click",e=>{
+    if(e.target===projectModal){
+        projectModal.classList.remove("show");
+        document.body.classList.remove("modal-open");
+    }
+});
+document.getElementById("projectIdeaForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const name = document.getElementById("ideaName").value.trim();
+    const city = document.getElementById("ideaCity").value;
+    const text = document.getElementById("ideaText").value.trim();
+    if(!name || !city || !text) return;
+    const ideas = JSON.parse(localStorage.getItem("tabigat_projects") || "[]");
+    ideas.push({name,city,text,date:new Date().toISOString()});
+    localStorage.setItem("tabigat_projects",JSON.stringify(ideas));
+    projectModal.classList.remove("show");
+    document.body.classList.remove("modal-open");
+    e.target.reset();
+    showToast("Жоба сақталды!","Идеяң TABIĞAT демо-платформасында сақталды.");
+});
+
+/* EXTRA PROFILE SYNC ON ORIGINAL FORM */
+const originalSubmit = joinForm;
+originalSubmit.addEventListener("submit",()=>{
+    setTimeout(()=>{
+        const name = document.getElementById("name").value.trim();
+        const city = document.getElementById("city").value;
+        const interests = [...document.querySelectorAll('input[name="interest"]:checked')].map(i=>i.value);
+        if(name && city){
+            const old = getProfile();
+            const profile = {
+                name,
+                city,
+                interests,
+                score: old ? (old.score || 720) : 720,
+                actions: old ? (old.actions || 12) + 1 : 13,
+                trees: old ? (old.trees || 8) : 8,
+                waste: old ? (old.waste || 34) : 34
+            };
+            saveProfile(profile);
+            renderProfile();
+        }
+    },50);
+});
+
+/* AI ASSISTANT — LOCAL DEMO, NO API KEY NEEDED */
+const aiLaunch = document.getElementById("aiLaunch");
+const aiPanel = document.getElementById("aiPanel");
+const aiClose = document.getElementById("aiClose");
+const aiMessages = document.getElementById("aiMessages");
+const aiForm = document.getElementById("aiForm");
+const aiInput = document.getElementById("aiInput");
+
+function addAIMessage(text,type="bot"){
+    const div = document.createElement("div");
+    div.className = "ai-message " + type;
+    div.textContent = text;
+    aiMessages.appendChild(div);
+    aiMessages.scrollTop = aiMessages.scrollHeight;
+}
+
+function ecoAIReply(text){
+    const q = text.toLowerCase();
+    if(q.includes("қосыла") || q.includes("join")){
+        return "Қосылу үшін төмендегі «Қауымдастыққа қосылу» формасын толтыр. Қалаң мен қызығушылығыңды таңдасаң, WhatsApp-та дайын хабарлама ашылады. 🌱";
+    }
+    if(q.includes("score") || q.includes("балл")){
+        return "ECO SCORE — адамның экологиялық белсенділігін көрсетуге арналған демо ұпай. Акция, ағаш отырғызу, қалдық жинау және challenge сияқты әрекеттер ұпайды арттырады.";
+    }
+    if(q.includes("жоба") || q.includes("идея")){
+        return "«Жастардың экологиялық идеялары» бөліміндегі «Өз жобамды ұсыну» батырмасын бас. Жоба атауын, қалаңды және идеяңды жазып сақтай аласың. 💡";
+    }
+    if(q.includes("ағаш") || q.includes("tree")){
+        return "Community Tree әр жаңа қатысушының үлесін визуалды түрде көрсетеді. Қазір ағаш деңгейі браузердегі жергілікті мүшелер санына қарай өседі. 🌳";
+    }
+    if(q.includes("қалдық") || q.includes("пластик")){
+        return "Пластикті азайту үшін бір реттік бөтелке мен пакетті қайта қолданылатын баламамен алмастыруға, қалдықты бөлек жинауға және қайта өңдеуге тапсыруға болады. ♻️";
+    }
+    if(q.includes("тараз")){
+        return "Тараз TABIĞAT платформасындағы негізгі қалалардың бірі. Eco Map-та Таразды басып, оның демо көрсеткіштерін көре аласың. 🌿";
+    }
+    return "Керемет сұрақ! 🌱 TABIĞAT-та қала тазалығы, ағаш отырғызу, қалдықтарды сұрыптау, су ресурстары, Eco Media және жастар жобалары бағыттары бар.";
+}
+
+aiLaunch.addEventListener("click",()=>aiPanel.classList.toggle("show"));
+aiClose.addEventListener("click",()=>aiPanel.classList.remove("show"));
+
+aiForm.addEventListener("submit",e=>{
+    e.preventDefault();
+    const text = aiInput.value.trim();
+    if(!text) return;
+    addAIMessage(text,"user");
+    aiInput.value = "";
+    setTimeout(()=>addAIMessage(ecoAIReply(text),"bot"),280);
+});
+
+document.querySelectorAll(".ai-quick button").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        const text = btn.dataset.ai;
+        addAIMessage(text,"user");
+        setTimeout(()=>addAIMessage(ecoAIReply(text),"bot"),220);
+    });
+});
+
+/* TREE GROWTH — ADDITIONAL VISUAL FEEDBACK */
+function ecoTreeCelebration(){
+    tree.animate([
+        {transform:tree.style.transform || "translateX(-50%) rotateY(-12deg) scale(1)"},
+        {transform:"translateX(-50%) rotateY(0deg) scale(1.055)"},
+        {transform:"translateX(-50%) rotateY(-12deg) scale(1)"}
+    ],{duration:850,easing:"cubic-bezier(.2,.8,.2,1)"});
+}
+const oldAddLocalMember = addLocalMember;
+addLocalMember = function(){
+    oldAddLocalMember();
+    ecoTreeCelebration();
+    renderProfile();
+};
+
+/* Update navigation with new platform sections without removing original links */
+const nav = document.getElementById("navLinks");
+if(nav){
+    const extraLinks = [
+        ["#eco-map","Eco Map"],
+        ["#activity","Live"],
+        ["#projects","Projects"],
+        ["#profile","Profile"]
+    ];
+    extraLinks.forEach(([href,label])=>{
+        const a = document.createElement("a");
+        a.href = href;
+        a.textContent = label;
+        nav.appendChild(a);
+        a.addEventListener("click",()=>navLinks.classList.remove("show"));
+    });
+}
+
+/* Add richer startup behavior */
+window.addEventListener("load",()=>{
+    renderProfile();
+    updateChallenge();
+    updateTree();
+});
 
 </script>
 
