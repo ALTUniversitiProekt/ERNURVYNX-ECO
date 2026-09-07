@@ -1,0 +1,4569 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07150f">
+<meta name="description" content="ECO YOUTH — жастарды экологиялық әрекетке біріктіретін цифрлық платформа.">
+<title>ECO YOUTH — Табиғат үшін бірге</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   ECO YOUTH — GLOBAL
+========================================================= */
+
+:root{
+    --bg:#07110d;
+    --bg-soft:#0b1712;
+    --bg-card:#101e17;
+    --green:#b7f34b;
+    --green-2:#76d63d;
+    --mint:#c8f7b0;
+    --white:#f5f8f3;
+    --text:#e9eee9;
+    --muted:#87968d;
+    --line:rgba(255,255,255,.09);
+    --line-green:rgba(183,243,75,.24);
+    --shadow:0 25px 80px rgba(0,0,0,.28);
+    --radius:26px;
+    --radius-small:16px;
+    --max:1240px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+        radial-gradient(circle at 75% 10%,rgba(81,145,77,.13),transparent 28%),
+        radial-gradient(circle at 15% 40%,rgba(50,120,90,.09),transparent 25%),
+        var(--bg);
+    color:var(--text);
+    font-family:"DM Sans",sans-serif;
+    overflow-x:hidden;
+}
+
+body.light{
+    --bg:#eef5ed;
+    --bg-soft:#e4eee3;
+    --bg-card:#f8fbf7;
+    --white:#102017;
+    --text:#15221a;
+    --muted:#657269;
+    --line:rgba(15,40,25,.12);
+    --shadow:0 25px 70px rgba(26,62,38,.12);
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+::selection{
+    background:var(--green);
+    color:#10200f;
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-track{
+    background:var(--bg);
+}
+
+::-webkit-scrollbar-thumb{
+    background:#294a36;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background:var(--green-2);
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.background-grid{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:-4;
+    opacity:.23;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:80px 80px;
+    mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+
+.ambient{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    pointer-events:none;
+    filter:blur(100px);
+    opacity:.08;
+    z-index:-3;
+    background:#71c94b;
+}
+
+.ambient.one{
+    top:-180px;
+    left:-180px;
+}
+
+.ambient.two{
+    right:-200px;
+    top:40%;
+    background:#3c9d7c;
+}
+
+.noise{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:100;
+    opacity:.025;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+    width:min(var(--max),calc(100% - 48px));
+    margin:auto;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:50;
+    padding:18px 0;
+    transition:.35s ease;
+}
+
+.navbar.scrolled{
+    background:rgba(7,17,13,.78);
+    backdrop-filter:blur(22px);
+    border-bottom:1px solid var(--line);
+}
+
+.nav-inner{
+    width:min(1320px,calc(100% - 36px));
+    margin:auto;
+    height:66px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 9px 0 18px;
+    border:1px solid var(--line);
+    border-radius:22px;
+    background:rgba(13,28,20,.48);
+    backdrop-filter:blur(18px);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    font-weight:800;
+    letter-spacing:-.03em;
+}
+
+.logo-symbol{
+    width:38px;
+    height:38px;
+    display:grid;
+    place-items:center;
+    border-radius:12px;
+    background:var(--green);
+    color:#10200e;
+    font-weight:900;
+    font-size:19px;
+    box-shadow:0 0 35px rgba(183,243,75,.16);
+}
+
+.logo-text span{
+    color:var(--green);
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.nav-links a{
+    padding:10px 15px;
+    color:#aab7ae;
+    font-size:14px;
+    border-radius:12px;
+    transition:.25s;
+}
+
+.nav-links a:hover{
+    color:var(--white);
+    background:rgba(255,255,255,.05);
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.lang-btn,
+.theme-btn{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    color:var(--text);
+    width:40px;
+    height:40px;
+    border-radius:12px;
+}
+
+.lang-btn{
+    font-size:11px;
+    font-weight:800;
+}
+
+.join-btn{
+    border:0;
+    background:var(--green);
+    color:#12200f;
+    padding:12px 18px;
+    border-radius:13px;
+    font-size:13px;
+    font-weight:800;
+    transition:.25s;
+}
+
+.join-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(183,243,75,.15);
+}
+
+.menu-btn{
+    display:none;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--text);
+    font-size:20px;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:900px;
+    padding-top:150px;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero-layout{
+    display:grid;
+    grid-template-columns:1fr .92fr;
+    gap:60px;
+    align-items:center;
+}
+
+.hero-copy{
+    position:relative;
+    z-index:3;
+}
+
+.eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    border:1px solid var(--line-green);
+    background:rgba(183,243,75,.045);
+    padding:8px 12px;
+    border-radius:100px;
+    color:var(--green);
+    font-size:11px;
+    letter-spacing:.13em;
+    font-weight:800;
+    margin-bottom:28px;
+}
+
+.live-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 15px var(--green);
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{opacity:1;transform:scale(1)}
+    50%{opacity:.5;transform:scale(.7)}
+}
+
+.hero h1{
+    font-family:"Manrope",sans-serif;
+    font-size:clamp(55px,7vw,94px);
+    line-height:.94;
+    letter-spacing:-.065em;
+    max-width:760px;
+    font-weight:800;
+}
+
+.hero h1 .green{
+    color:var(--green);
+}
+
+.hero-description{
+    max-width:570px;
+    color:var(--muted);
+    font-size:17px;
+    line-height:1.75;
+    margin-top:31px;
+}
+
+.hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:35px;
+}
+
+.primary-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    min-height:52px;
+    padding:0 20px;
+    border:0;
+    border-radius:15px;
+    background:var(--green);
+    color:#14220f;
+    font-weight:800;
+    font-size:14px;
+    transition:.25s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 35px rgba(183,243,75,.14);
+}
+
+.secondary-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    min-height:52px;
+    padding:0 20px;
+    border:1px solid var(--line);
+    border-radius:15px;
+    color:var(--text);
+    background:rgba(255,255,255,.025);
+    font-weight:700;
+    font-size:14px;
+    transition:.25s;
+}
+
+.secondary-btn:hover{
+    border-color:var(--line-green);
+    background:rgba(183,243,75,.04);
+}
+
+.hero-mini-stats{
+    display:flex;
+    gap:30px;
+    margin-top:48px;
+}
+
+.mini-stat{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.mini-stat strong{
+    font-family:"Manrope";
+    font-size:25px;
+    letter-spacing:-.04em;
+}
+
+.mini-stat span{
+    color:var(--muted);
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+}
+
+/* =========================================================
+   GLOBE
+========================================================= */
+
+.planet-wrap{
+    min-height:620px;
+    position:relative;
+    display:grid;
+    place-items:center;
+}
+
+.planet{
+    width:min(510px,90vw);
+    aspect-ratio:1;
+    border-radius:50%;
+    position:relative;
+    background:
+        radial-gradient(circle at 35% 28%,rgba(183,243,75,.28),transparent 8%),
+        radial-gradient(circle at 58% 48%,#245f3e 0 10%,transparent 11%),
+        radial-gradient(circle at 37% 58%,#317a4d 0 15%,transparent 16%),
+        radial-gradient(circle at 70% 34%,#3f8552 0 12%,transparent 13%),
+        radial-gradient(circle at 49% 45%,#112e21 0 48%,#07130e 72%);
+    box-shadow:
+        inset -45px -30px 90px rgba(0,0,0,.6),
+        inset 25px 15px 60px rgba(152,239,116,.12),
+        0 0 80px rgba(84,181,91,.08);
+    animation:floatPlanet 7s ease-in-out infinite;
+}
+
+@keyframes floatPlanet{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.planet::before{
+    content:"";
+    position:absolute;
+    inset:-18px;
+    border:1px solid rgba(183,243,75,.12);
+    border-radius:50%;
+    box-shadow:
+        0 0 0 20px rgba(183,243,75,.015),
+        0 0 80px rgba(183,243,75,.05);
+}
+
+.planet::after{
+    content:"";
+    position:absolute;
+    inset:2%;
+    border-radius:50%;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0 15px,
+            rgba(150,220,160,.025) 16px,
+            transparent 17px
+        );
+    mix-blend-mode:screen;
+}
+
+.continent{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(104,174,82,.65);
+    filter:blur(1px);
+}
+
+.c1{
+    width:145px;
+    height:78px;
+    left:15%;
+    top:31%;
+    transform:rotate(-17deg);
+    border-radius:48% 52% 45% 55%;
+}
+
+.c2{
+    width:90px;
+    height:160px;
+    left:34%;
+    top:49%;
+    transform:rotate(22deg);
+    border-radius:55% 45% 35% 65%;
+}
+
+.c3{
+    width:120px;
+    height:65px;
+    right:15%;
+    top:25%;
+    transform:rotate(20deg);
+}
+
+.c4{
+    width:76px;
+    height:90px;
+    right:21%;
+    bottom:20%;
+    transform:rotate(-30deg);
+}
+
+.glow-point{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 15px var(--green);
+    z-index:5;
+}
+
+.gp1{left:42%;top:40%}
+.gp2{left:56%;top:57%}
+.gp3{left:67%;top:38%}
+.gp4{left:31%;top:61%}
+
+.orbit{
+    position:absolute;
+    width:580px;
+    height:220px;
+    border:1px solid rgba(183,243,75,.1);
+    border-radius:50%;
+    transform:rotate(-25deg);
+}
+
+.orbit-dot{
+    position:absolute;
+    width:10px;
+    height:10px;
+    background:var(--green);
+    border-radius:50%;
+    top:9px;
+    right:120px;
+    box-shadow:0 0 25px var(--green);
+}
+
+.planet-card{
+    position:absolute;
+    background:rgba(12,28,19,.82);
+    backdrop-filter:blur(20px);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:15px 17px;
+    box-shadow:var(--shadow);
+}
+
+.pc-top{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:var(--green);
+    font-size:10px;
+    letter-spacing:.12em;
+    font-weight:800;
+    text-transform:uppercase;
+}
+
+.pc-value{
+    font-family:"Manrope";
+    font-size:23px;
+    font-weight:800;
+    margin-top:5px;
+}
+
+.pc-sub{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:2px;
+}
+
+.pc-one{
+    left:0;
+    top:25%;
+}
+
+.pc-two{
+    right:0;
+    bottom:24%;
+}
+
+.location-label{
+    position:absolute;
+    left:50%;
+    bottom:5%;
+    transform:translateX(-50%);
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:.16em;
+    white-space:nowrap;
+}
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    background:rgba(255,255,255,.015);
+}
+
+.marquee-track{
+    display:flex;
+    width:max-content;
+    animation:marquee 25s linear infinite;
+}
+
+.marquee-item{
+    padding:19px 28px;
+    display:flex;
+    align-items:center;
+    gap:25px;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:#89988f;
+    white-space:nowrap;
+}
+
+.marquee-item b{
+    color:var(--green);
+}
+
+@keyframes marquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+    padding:120px 0;
+}
+
+.section-head{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    gap:30px;
+    margin-bottom:48px;
+}
+
+.section-label{
+    color:var(--green);
+    font-size:11px;
+    letter-spacing:.16em;
+    font-weight:800;
+    text-transform:uppercase;
+    margin-bottom:13px;
+}
+
+.section-title{
+    font-family:"Manrope";
+    font-size:clamp(38px,5vw,64px);
+    letter-spacing:-.055em;
+    line-height:1;
+    max-width:700px;
+}
+
+.section-description{
+    color:var(--muted);
+    max-width:400px;
+    line-height:1.7;
+    font-size:14px;
+}
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.actions-section{
+    position:relative;
+}
+
+.filter-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.filter-btn{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--muted);
+    padding:10px 15px;
+    border-radius:100px;
+    font-size:12px;
+    transition:.25s;
+}
+
+.filter-btn:hover,
+.filter-btn.active{
+    background:var(--green);
+    color:#14220f;
+    border-color:var(--green);
+    font-weight:800;
+}
+
+.actions-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.action-card{
+    border:1px solid var(--line);
+    background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+    border-radius:var(--radius);
+    padding:23px;
+    min-height:380px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.action-card:hover{
+    transform:translateY(-7px);
+    border-color:var(--line-green);
+    box-shadow:var(--shadow);
+}
+
+.action-visual{
+    height:165px;
+    border-radius:18px;
+    background:
+        linear-gradient(135deg,rgba(92,177,102,.25),rgba(8,25,16,.8)),
+        radial-gradient(circle at 60% 40%,rgba(183,243,75,.2),transparent 35%);
+    position:relative;
+    overflow:hidden;
+}
+
+.action-visual::after{
+    content:"";
+    position:absolute;
+    width:160px;
+    height:160px;
+    right:-30px;
+    top:-50px;
+    border:1px solid rgba(183,243,75,.14);
+    border-radius:50%;
+    box-shadow:0 0 0 30px rgba(183,243,75,.025);
+}
+
+.visual-icon{
+    position:absolute;
+    left:22px;
+    bottom:18px;
+    font-size:43px;
+    filter:drop-shadow(0 10px 25px rgba(0,0,0,.2));
+}
+
+.action-tag{
+    position:absolute;
+    right:15px;
+    top:15px;
+    background:rgba(5,16,10,.55);
+    border:1px solid rgba(255,255,255,.08);
+    padding:7px 9px;
+    border-radius:9px;
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    color:#a7b8ae;
+}
+
+.action-info{
+    padding-top:20px;
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.action-info h3{
+    font-family:"Manrope";
+    font-size:21px;
+    letter-spacing:-.035em;
+}
+
+.action-info p{
+    color:var(--muted);
+    line-height:1.6;
+    font-size:13px;
+    margin-top:9px;
+}
+
+.action-meta{
+    display:flex;
+    gap:17px;
+    margin-top:auto;
+    padding-top:20px;
+}
+
+.meta-item{
+    color:#91a097;
+    font-size:11px;
+}
+
+.meta-item strong{
+    color:var(--text);
+    display:block;
+    font-size:12px;
+    margin-bottom:3px;
+}
+
+.action-footer{
+    margin-top:19px;
+    padding-top:17px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.people{
+    display:flex;
+    align-items:center;
+}
+
+.avatar{
+    width:27px;
+    height:27px;
+    border-radius:50%;
+    border:2px solid var(--bg-card);
+    background:linear-gradient(135deg,#47795b,#b7d9a4);
+    margin-left:-7px;
+}
+
+.avatar:first-child{
+    margin-left:0;
+}
+
+.people span{
+    color:var(--muted);
+    font-size:10px;
+    margin-left:9px;
+}
+
+.action-join{
+    border:0;
+    background:rgba(183,243,75,.09);
+    color:var(--green);
+    padding:9px 12px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:800;
+}
+
+/* =========================================================
+   OPPORTUNITIES
+========================================================= */
+
+.opportunities{
+    background:
+        radial-gradient(circle at 90% 50%,rgba(105,178,83,.07),transparent 30%),
+        rgba(255,255,255,.012);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.opportunity-layout{
+    display:grid;
+    grid-template-columns:.8fr 1.2fr;
+    gap:60px;
+}
+
+.opportunity-intro{
+    position:sticky;
+    top:130px;
+    align-self:start;
+}
+
+.opportunity-intro h2{
+    font-family:"Manrope";
+    font-size:clamp(40px,5vw,67px);
+    line-height:.98;
+    letter-spacing:-.06em;
+}
+
+.opportunity-intro h2 span{
+    color:var(--green);
+}
+
+.opportunity-intro p{
+    color:var(--muted);
+    line-height:1.75;
+    margin-top:24px;
+    max-width:430px;
+}
+
+.opportunity-note{
+    margin-top:30px;
+    border-left:2px solid var(--green);
+    padding-left:16px;
+    color:#9fac9f;
+    font-size:12px;
+    line-height:1.7;
+}
+
+.jobs{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.job-card{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    border-radius:20px;
+    padding:21px;
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    gap:17px;
+    align-items:center;
+    transition:.3s;
+}
+
+.job-card:hover{
+    background:rgba(183,243,75,.035);
+    border-color:var(--line-green);
+    transform:translateX(5px);
+}
+
+.job-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    display:grid;
+    place-items:center;
+    background:rgba(183,243,75,.07);
+    font-size:22px;
+}
+
+.job-content h3{
+    font-family:"Manrope";
+    font-size:16px;
+}
+
+.job-content p{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.job-tags{
+    display:flex;
+    gap:7px;
+    margin-top:9px;
+    flex-wrap:wrap;
+}
+
+.job-tag{
+    color:#84938a;
+    background:rgba(255,255,255,.035);
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:9px;
+}
+
+.job-action{
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--text);
+    padding:10px 13px;
+    border-radius:10px;
+    font-size:11px;
+    font-weight:700;
+}
+
+/* =========================================================
+   MAP
+========================================================= */
+
+.map-section{
+    overflow:hidden;
+}
+
+.map-layout{
+    display:grid;
+    grid-template-columns:1fr .8fr;
+    gap:30px;
+}
+
+.map-box{
+    min-height:560px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:
+        radial-gradient(circle at 50% 50%,rgba(91,160,89,.08),transparent 50%),
+        #0a1710;
+    position:relative;
+    overflow:hidden;
+}
+
+.map-lines{
+    position:absolute;
+    inset:0;
+    opacity:.5;
+    background-image:
+        linear-gradient(rgba(111,171,109,.09) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(111,171,109,.09) 1px,transparent 1px);
+    background-size:45px 45px;
+}
+
+.kz-map{
+    position:absolute;
+    width:72%;
+    height:53%;
+    left:14%;
+    top:24%;
+    background:rgba(84,150,83,.13);
+    clip-path:polygon(
+        0% 25%, 7% 17%, 16% 19%, 22% 10%,
+        32% 14%, 40% 7%, 49% 16%, 59% 12%,
+        67% 20%, 79% 13%, 90% 22%, 100% 35%,
+        93% 47%, 87% 55%, 91% 65%, 82% 71%,
+        72% 68%, 66% 79%, 54% 74%, 45% 83%,
+        36% 73%, 27% 78%, 19% 65%, 9% 63%,
+        13% 51%, 4% 46%
+    );
+    border:1px solid rgba(183,243,75,.2);
+    filter:drop-shadow(0 0 35px rgba(96,181,94,.08));
+}
+
+.city{
+    position:absolute;
+    z-index:4;
+    cursor:pointer;
+}
+
+.city-dot{
+    width:12px;
+    height:12px;
+    background:var(--green);
+    border-radius:50%;
+    box-shadow:0 0 0 5px rgba(183,243,75,.08),0 0 20px rgba(183,243,75,.55);
+    animation:cityPulse 2.2s infinite;
+}
+
+@keyframes cityPulse{
+    0%,100%{box-shadow:0 0 0 5px rgba(183,243,75,.08),0 0 20px rgba(183,243,75,.5)}
+    50%{box-shadow:0 0 0 11px rgba(183,243,75,.025),0 0 25px rgba(183,243,75,.7)}
+}
+
+.city-name{
+    position:absolute;
+    left:18px;
+    top:-5px;
+    font-size:10px;
+    color:#b3c1b7;
+    white-space:nowrap;
+}
+
+.almaty{left:62%;top:61%}
+.astana{left:57%;top:33%}
+.shymkent{left:47%;top:73%}
+.taraz{left:52%;top:67%}
+.karaganda{left:67%;top:45%}
+
+.map-top{
+    position:absolute;
+    left:22px;
+    top:22px;
+    z-index:5;
+}
+
+.map-top h3{
+    font-family:"Manrope";
+    font-size:18px;
+}
+
+.map-top p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:4px;
+}
+
+.map-legend{
+    position:absolute;
+    right:22px;
+    bottom:22px;
+    z-index:5;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:13px;
+    border:1px solid var(--line);
+    background:rgba(7,17,13,.72);
+    backdrop-filter:blur(15px);
+    border-radius:14px;
+}
+
+.legend{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:10px;
+    color:#89988f;
+}
+
+.legend-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--green);
+}
+
+.city-info{
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+    padding:30px;
+}
+
+.city-info .big-number{
+    font-family:"Manrope";
+    font-size:72px;
+    letter-spacing:-.07em;
+    line-height:1;
+    color:var(--green);
+}
+
+.city-info h3{
+    font-family:"Manrope";
+    font-size:28px;
+    margin-top:15px;
+}
+
+.city-info p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.city-stats{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.city-stat{
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:14px;
+}
+
+.city-stat strong{
+    display:block;
+    font-family:"Manrope";
+    font-size:20px;
+}
+
+.city-stat span{
+    color:var(--muted);
+    font-size:10px;
+}
+
+/* =========================================================
+   CHALLENGE
+========================================================= */
+
+.challenge{
+    padding-top:80px;
+}
+
+.challenge-card{
+    border:1px solid var(--line-green);
+    border-radius:32px;
+    padding:55px;
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 85% 25%,rgba(183,243,75,.13),transparent 25%),
+        linear-gradient(120deg,#10251a,#0a1710);
+}
+
+.challenge-card::before{
+    content:"30";
+    position:absolute;
+    right:-20px;
+    top:-100px;
+    font-family:"Manrope";
+    font-size:310px;
+    font-weight:800;
+    color:rgba(183,243,75,.025);
+    line-height:1;
+}
+
+.challenge-content{
+    position:relative;
+    z-index:2;
+    max-width:760px;
+}
+
+.challenge-badge{
+    display:inline-block;
+    color:#14220f;
+    background:var(--green);
+    border-radius:100px;
+    padding:7px 10px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+}
+
+.challenge-card h2{
+    font-family:"Manrope";
+    font-size:clamp(42px,6vw,72px);
+    line-height:.95;
+    letter-spacing:-.065em;
+    margin-top:22px;
+}
+
+.challenge-card h2 span{
+    color:var(--green);
+}
+
+.challenge-card p{
+    color:#91a098;
+    max-width:590px;
+    line-height:1.7;
+    margin-top:20px;
+}
+
+.challenge-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+.leader-layout{
+    display:grid;
+    grid-template-columns:.75fr 1.25fr;
+    gap:50px;
+}
+
+.score-card{
+    border:1px solid var(--line);
+    background:linear-gradient(145deg,rgba(183,243,75,.07),rgba(255,255,255,.02));
+    border-radius:28px;
+    padding:30px;
+}
+
+.score-small{
+    color:var(--muted);
+    font-size:10px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
+.score-number{
+    font-family:"Manrope";
+    font-size:85px;
+    line-height:1;
+    letter-spacing:-.08em;
+    color:var(--green);
+    margin-top:10px;
+}
+
+.score-level{
+    display:inline-block;
+    margin-top:8px;
+    border:1px solid var(--line-green);
+    padding:6px 9px;
+    border-radius:8px;
+    color:var(--green);
+    font-size:9px;
+    font-weight:800;
+}
+
+.progress{
+    height:7px;
+    border-radius:10px;
+    background:rgba(255,255,255,.07);
+    overflow:hidden;
+    margin-top:25px;
+}
+
+.progress span{
+    display:block;
+    width:74%;
+    height:100%;
+    background:var(--green);
+    border-radius:inherit;
+}
+
+.score-details{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+    margin-top:15px;
+}
+
+.score-detail{
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:13px;
+}
+
+.score-detail strong{
+    display:block;
+    font-family:"Manrope";
+    font-size:19px;
+}
+
+.score-detail span{
+    color:var(--muted);
+    font-size:9px;
+}
+
+.leaderboard{
+    border:1px solid var(--line);
+    border-radius:28px;
+    overflow:hidden;
+}
+
+.leader-head,
+.leader-row{
+    display:grid;
+    grid-template-columns:60px 1fr 100px;
+    align-items:center;
+}
+
+.leader-head{
+    padding:17px 22px;
+    color:#67766d;
+    font-size:9px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--line);
+}
+
+.leader-row{
+    padding:17px 22px;
+    border-bottom:1px solid var(--line);
+    transition:.2s;
+}
+
+.leader-row:last-child{
+    border-bottom:0;
+}
+
+.leader-row:hover{
+    background:rgba(255,255,255,.025);
+}
+
+.rank{
+    font-family:"Manrope";
+    color:#66766c;
+    font-weight:700;
+}
+
+.person{
+    display:flex;
+    align-items:center;
+    gap:11px;
+}
+
+.person-avatar{
+    width:37px;
+    height:37px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:rgba(183,243,75,.08);
+    font-size:14px;
+}
+
+.person strong{
+    display:block;
+    font-size:12px;
+}
+
+.person span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+    margin-top:2px;
+}
+
+.points{
+    text-align:right;
+    color:var(--green);
+    font-family:"Manrope";
+    font-weight:800;
+    font-size:13px;
+}
+
+/* =========================================================
+   IMPACT
+========================================================= */
+
+.impact{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:
+        radial-gradient(circle at 20% 50%,rgba(183,243,75,.06),transparent 25%);
+}
+
+.impact-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border:1px solid var(--line);
+    border-radius:25px;
+    overflow:hidden;
+}
+
+.impact-item{
+    min-height:190px;
+    padding:28px;
+    border-right:1px solid var(--line);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.impact-item:last-child{
+    border-right:0;
+}
+
+.impact-number{
+    font-family:"Manrope";
+    font-size:45px;
+    letter-spacing:-.06em;
+    color:var(--green);
+}
+
+.impact-item h3{
+    font-size:13px;
+    margin-top:5px;
+}
+
+.impact-item p{
+    color:var(--muted);
+    font-size:10px;
+    margin-top:4px;
+}
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about-layout{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:center;
+}
+
+.about-visual{
+    min-height:540px;
+    border:1px solid var(--line);
+    border-radius:30px;
+    background:
+        radial-gradient(circle at 50% 50%,rgba(91,168,92,.16),transparent 30%),
+        linear-gradient(145deg,#0e2116,#07100c);
+    position:relative;
+    overflow:hidden;
+}
+
+.leaf{
+    position:absolute;
+    width:250px;
+    height:120px;
+    border:1px solid rgba(183,243,75,.17);
+    border-radius:100% 0 100% 0;
+    transform:rotate(-38deg);
+    left:50%;
+    top:50%;
+    translate:-50% -50%;
+}
+
+.leaf::before{
+    content:"";
+    position:absolute;
+    width:1px;
+    height:95%;
+    background:rgba(183,243,75,.2);
+    left:50%;
+    top:2%;
+    transform:rotate(38deg);
+}
+
+.leaf-two{
+    width:160px;
+    height:80px;
+    transform:rotate(38deg);
+    left:36%;
+    top:42%;
+}
+
+.leaf-three{
+    width:190px;
+    height:90px;
+    transform:rotate(-130deg);
+    left:64%;
+    top:57%;
+}
+
+.about-orbit{
+    position:absolute;
+    inset:13%;
+    border:1px solid rgba(183,243,75,.07);
+    border-radius:50%;
+    transform:rotate(25deg);
+}
+
+.about-core{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:rgba(183,243,75,.08);
+    border:1px solid rgba(183,243,75,.22);
+    display:grid;
+    place-items:center;
+    color:var(--green);
+    font-size:34px;
+    box-shadow:0 0 70px rgba(183,243,75,.08);
+}
+
+.about-text h2{
+    font-family:"Manrope";
+    font-size:clamp(44px,5vw,67px);
+    line-height:.96;
+    letter-spacing:-.065em;
+}
+
+.about-text h2 span{
+    color:var(--green);
+}
+
+.about-text p{
+    color:var(--muted);
+    line-height:1.8;
+    font-size:14px;
+    margin-top:25px;
+    max-width:520px;
+}
+
+.about-points{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-top:30px;
+}
+
+.about-point{
+    border-top:1px solid var(--line);
+    padding-top:15px;
+}
+
+.about-point strong{
+    font-size:13px;
+    display:block;
+}
+
+.about-point span{
+    display:block;
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.5;
+    margin-top:5px;
+}
+
+/* =========================================================
+   JOIN
+========================================================= */
+
+.join-section{
+    padding-bottom:150px;
+}
+
+.join-box{
+    border:1px solid var(--line-green);
+    border-radius:32px;
+    padding:55px;
+    display:grid;
+    grid-template-columns:1fr .8fr;
+    gap:50px;
+    background:
+        radial-gradient(circle at 90% 0%,rgba(183,243,75,.12),transparent 35%),
+        rgba(255,255,255,.02);
+}
+
+.join-box h2{
+    font-family:"Manrope";
+    font-size:clamp(45px,5vw,70px);
+    line-height:.95;
+    letter-spacing:-.065em;
+}
+
+.join-box h2 span{
+    color:var(--green);
+}
+
+.join-box p{
+    color:var(--muted);
+    line-height:1.7;
+    margin-top:18px;
+    max-width:500px;
+}
+
+.join-form{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.input{
+    width:100%;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+    color:var(--text);
+    border-radius:13px;
+    padding:14px 15px;
+    outline:none;
+    transition:.2s;
+}
+
+.input:focus{
+    border-color:var(--line-green);
+    background:rgba(183,243,75,.025);
+}
+
+textarea.input{
+    resize:vertical;
+    min-height:105px;
+}
+
+.form-message{
+    display:none;
+    border:1px solid var(--line-green);
+    background:rgba(183,243,75,.05);
+    color:var(--green);
+    border-radius:12px;
+    padding:13px;
+    font-size:11px;
+    line-height:1.5;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    border-top:1px solid var(--line);
+    padding:35px 0;
+}
+
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:25px;
+}
+
+.footer-copy{
+    color:#68766e;
+    font-size:10px;
+}
+
+.footer-links{
+    display:flex;
+    gap:18px;
+}
+
+.footer-links a{
+    color:#7d8b82;
+    font-size:10px;
+}
+
+.footer-links a:hover{
+    color:var(--green);
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:100;
+    display:none;
+    place-items:center;
+    padding:20px;
+    background:rgba(2,8,5,.76);
+    backdrop-filter:blur(15px);
+}
+
+.modal.open{
+    display:grid;
+}
+
+.modal-box{
+    width:min(560px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border:1px solid var(--line-green);
+    border-radius:25px;
+    background:#0d1c14;
+    padding:30px;
+    box-shadow:0 30px 100px rgba(0,0,0,.5);
+    position:relative;
+    animation:modalIn .3s ease;
+}
+
+@keyframes modalIn{
+    from{opacity:0;transform:translateY(15px) scale(.98)}
+    to{opacity:1;transform:none}
+}
+
+.modal-close{
+    position:absolute;
+    right:18px;
+    top:18px;
+    width:35px;
+    height:35px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.04);
+    color:var(--text);
+    border-radius:10px;
+}
+
+.modal-icon{
+    font-size:38px;
+}
+
+.modal-box h2{
+    font-family:"Manrope";
+    font-size:30px;
+    margin-top:14px;
+    letter-spacing:-.04em;
+}
+
+.modal-box p{
+    color:var(--muted);
+    font-size:13px;
+    line-height:1.7;
+    margin-top:10px;
+}
+
+.modal-info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin:22px 0;
+}
+
+.modal-info-item{
+    border:1px solid var(--line);
+    padding:13px;
+    border-radius:12px;
+}
+
+.modal-info-item span{
+    display:block;
+    color:var(--muted);
+    font-size:9px;
+}
+
+.modal-info-item strong{
+    display:block;
+    font-size:12px;
+    margin-top:3px;
+}
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+    right:24px;
+    bottom:24px;
+    z-index:150;
+    background:#d9ff9a;
+    color:#10200f;
+    padding:14px 18px;
+    border-radius:13px;
+    font-size:12px;
+    font-weight:800;
+    transform:translateY(100px);
+    opacity:0;
+    transition:.35s;
+    box-shadow:0 15px 50px rgba(0,0,0,.3);
+}
+
+.toast.show{
+    transform:none;
+    opacity:1;
+}
+
+/* =========================================================
+   REVEAL ANIMATION
+========================================================= */
+
+.reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .7s ease,transform .7s ease;
+}
+
+.reveal.visible{
+    opacity:1;
+    transform:none;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px){
+
+    .hero-layout{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        min-height:auto;
+        padding-bottom:90px;
+    }
+
+    .planet-wrap{
+        min-height:580px;
+    }
+
+    .actions-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .opportunity-layout,
+    .leader-layout,
+    .about-layout{
+        grid-template-columns:1fr;
+        gap:40px;
+    }
+
+    .opportunity-intro{
+        position:static;
+    }
+
+    .map-layout{
+        grid-template-columns:1fr;
+    }
+
+    .join-box{
+        grid-template-columns:1fr;
+    }
+
+    .impact-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .impact-item:nth-child(2){
+        border-right:0;
+    }
+
+    .impact-item:nth-child(-n+2){
+        border-bottom:1px solid var(--line);
+    }
+
+    .about-visual{
+        min-height:470px;
+    }
+}
+
+@media(max-width:760px){
+
+    .container{
+        width:min(var(--max),calc(100% - 30px));
+    }
+
+    .nav-inner{
+        width:calc(100% - 20px);
+        height:60px;
+        border-radius:18px;
+    }
+
+    .nav-links{
+        position:absolute;
+        left:10px;
+        right:10px;
+        top:77px;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        padding:10px;
+        border:1px solid var(--line);
+        background:rgba(8,19,13,.95);
+        backdrop-filter:blur(20px);
+        border-radius:18px;
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-links a{
+        padding:14px;
+    }
+
+    .join-btn{
+        display:none;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .hero{
+        padding-top:125px;
+    }
+
+    .hero h1{
+        font-size:54px;
+    }
+
+    .hero-description{
+        font-size:15px;
+    }
+
+    .hero-mini-stats{
+        gap:20px;
+        flex-wrap:wrap;
+    }
+
+    .planet-wrap{
+        min-height:450px;
+    }
+
+    .planet{
+        width:350px;
+    }
+
+    .orbit{
+        width:400px;
+        height:160px;
+    }
+
+    .pc-one{
+        left:0;
+        top:15%;
+    }
+
+    .pc-two{
+        right:0;
+        bottom:13%;
+    }
+
+    section{
+        padding:85px 0;
+    }
+
+    .section-head{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .actions-grid{
+        grid-template-columns:1fr;
+    }
+
+    .action-card{
+        min-height:360px;
+    }
+
+    .job-card{
+        grid-template-columns:auto 1fr;
+    }
+
+    .job-action{
+        grid-column:2;
+        justify-self:start;
+    }
+
+    .map-box{
+        min-height:450px;
+    }
+
+    .challenge-card,
+    .join-box{
+        padding:30px 23px;
+    }
+
+    .challenge-card::before{
+        font-size:190px;
+        top:-30px;
+    }
+
+    .leader-head,
+    .leader-row{
+        grid-template-columns:40px 1fr 70px;
+    }
+
+    .leader-head{
+        padding:14px;
+    }
+
+    .leader-row{
+        padding:14px;
+    }
+
+    .impact-grid{
+        grid-template-columns:1fr;
+    }
+
+    .impact-item{
+        border-right:0;
+        border-bottom:1px solid var(--line);
+    }
+
+    .impact-item:last-child{
+        border-bottom:0;
+    }
+
+    .about-points{
+        grid-template-columns:1fr;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .modal-info{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:420px){
+
+    .logo-text{
+        font-size:12px;
+    }
+
+    .hero h1{
+        font-size:46px;
+    }
+
+    .planet{
+        width:300px;
+    }
+
+    .orbit{
+        width:340px;
+    }
+
+    .planet-card{
+        transform:scale(.85);
+    }
+
+    .pc-one{
+        left:-20px;
+    }
+
+    .pc-two{
+        right:-20px;
+    }
+
+    .location-label{
+        font-size:8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background-grid"></div>
+<div class="ambient one"></div>
+<div class="ambient two"></div>
+<div class="noise"></div>
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="navbar" id="navbar">
+    <div class="nav-inner">
+
+        <a href="#home" class="logo">
+            <div class="logo-symbol">E</div>
+            <div class="logo-text">ECO<span>YOUTH</span></div>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Басты бет</a>
+            <a href="#actions">Акциялар</a>
+            <a href="#jobs">Мүмкіндіктер</a>
+            <a href="#map">Карта</a>
+            <a href="#impact">Нәтиже</a>
+            <a href="#about">Жоба туралы</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="lang-btn" id="langBtn">KZ</button>
+            <button class="theme-btn" id="themeBtn">☼</button>
+            <a href="#join" class="join-btn">Бізге қосыл</a>
+            <button class="menu-btn" id="menuBtn">☰</button>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main id="home">
+
+<section class="hero">
+
+    <div class="container hero-layout">
+
+        <div class="hero-copy reveal">
+
+            <div class="eyebrow">
+                <span class="live-dot"></span>
+                ЖАСТАР • ЭКОЛОГИЯ • ӘРЕКЕТ
+            </div>
+
+            <h1>
+                Табиғатты
+                <span class="green">өзгерт.</span><br>
+                Өзіңнен баста.
+            </h1>
+
+            <p class="hero-description">
+                ECO YOUTH — Қазақстан жастарын экологиялық
+                жұмыстарға, волонтерлік акцияларға және табиғатты
+                қорғау жобаларына біріктіретін заманауи цифрлық платформа.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#actions" class="primary-btn">
+                    Экологиялық акциялар →
+                </a>
+
+                <a href="#about" class="secondary-btn">
+                    Жоба туралы
+                </a>
+            </div>
+
+            <div class="hero-mini-stats">
+
+                <div class="mini-stat">
+                    <strong>12.4K+</strong>
+                    <span>Қатысушы</span>
+                </div>
+
+                <div class="mini-stat">
+                    <strong>146</strong>
+                    <span>Акция</span>
+                </div>
+
+                <div class="mini-stat">
+                    <strong>38.2T</strong>
+                    <span>Қалдық</span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="planet-wrap reveal">
+
+            <div class="orbit">
+                <div class="orbit-dot"></div>
+            </div>
+
+            <div class="planet">
+
+                <div class="continent c1"></div>
+                <div class="continent c2"></div>
+                <div class="continent c3"></div>
+                <div class="continent c4"></div>
+
+                <div class="glow-point gp1"></div>
+                <div class="glow-point gp2"></div>
+                <div class="glow-point gp3"></div>
+                <div class="glow-point gp4"></div>
+
+            </div>
+
+            <div class="planet-card pc-one">
+
+                <div class="pc-top">
+                    <span class="live-dot"></span>
+                    ECO LIVE
+                </div>
+
+                <div class="pc-value">+2,840</div>
+                <div class="pc-sub">бүгінгі әрекет</div>
+
+            </div>
+
+            <div class="planet-card pc-two">
+
+                <div class="pc-top">
+                    🌱 IMPACT
+                </div>
+
+                <div class="pc-value">94.8%</div>
+                <div class="pc-sub">оң нәтиже</div>
+
+            </div>
+
+            <div class="location-label">
+                43.2389° N / 76.8897° E — ALMATY, KZ
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     MARQUEE
+===================================================== -->
+
+<div class="marquee">
+
+    <div class="marquee-track">
+
+        <div class="marquee-item">
+            <b>01</b> Таза қала
+        </div>
+
+        <div class="marquee-item">
+            <b>02</b> Жасыл болашақ
+        </div>
+
+        <div class="marquee-item">
+            <b>03</b> Ағаш отырғыз
+        </div>
+
+        <div class="marquee-item">
+            <b>04</b> Қалдықты сұрыпта
+        </div>
+
+        <div class="marquee-item">
+            <b>05</b> Су көзін қорға
+        </div>
+
+        <div class="marquee-item">
+            <b>06</b> Жастармен бірге
+        </div>
+
+        <div class="marquee-item">
+            <b>01</b> Таза қала
+        </div>
+
+        <div class="marquee-item">
+            <b>02</b> Жасыл болашақ
+        </div>
+
+        <div class="marquee-item">
+            <b>03</b> Ағаш отырғыз
+        </div>
+
+        <div class="marquee-item">
+            <b>04</b> Қалдықты сұрыпта
+        </div>
+
+        <div class="marquee-item">
+            <b>05</b> Су көзін қорға
+        </div>
+
+        <div class="marquee-item">
+            <b>06</b> Жастармен бірге
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ACTIONS
+===================================================== -->
+
+<section id="actions" class="actions-section">
+
+<div class="container">
+
+    <div class="section-head reveal">
+
+        <div>
+            <div class="section-label">01 / ECO ACTIONS</div>
+
+            <h2 class="section-title">
+                Қазір жасай<br>
+                алатын әрекет.
+            </h2>
+        </div>
+
+        <p class="section-description">
+            Өзіңе жақын экологиялық жобаны таңда.
+            Бірнеше сағат уақытыңды бөліп,
+            қалаңа нақты пайда әкел.
+        </p>
+
+    </div>
+
+
+    <div class="filter-row reveal">
+
+        <button class="filter-btn active" data-filter="all">
+            Барлығы
+        </button>
+
+        <button class="filter-btn" data-filter="clean">
+            🧹 Тазалық
+        </button>
+
+        <button class="filter-btn" data-filter="tree">
+            🌳 Көгалдандыру
+        </button>
+
+        <button class="filter-btn" data-filter="recycle">
+            ♻️ Сұрыптау
+        </button>
+
+        <button class="filter-btn" data-filter="water">
+            💧 Су
+        </button>
+
+    </div>
+
+
+    <div class="actions-grid" id="actionsGrid">
+
+
+        <!-- CARD 1 -->
+
+        <article class="action-card reveal" data-category="clean">
+
+            <div class="action-visual">
+                <span class="action-tag">ALMATY</span>
+                <div class="visual-icon">🧹</div>
+            </div>
+
+            <div class="action-info">
+
+                <h3>Таза Алматы</h3>
+
+                <p>
+                    Қаладағы қоғамдық аумақтарды
+                    тазалау және жастармен бірге
+                    таза орта қалыптастыру.
+                </p>
+
+                <div class="action-meta">
+
+                    <div class="meta-item">
+                        <strong>14 ҚЫРКҮЙЕК</strong>
+                        Күні
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>09:00</strong>
+                        Басталуы
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>86</strong>
+                        Қатысушы
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-footer">
+
+                <div class="people">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <span>+83 адам</span>
+                </div>
+
+                <button
+                    class="action-join"
+                    data-title="Таза Алматы"
+                    data-icon="🧹"
+                    data-location="Алматы"
+                    data-date="14 қыркүйек"
+                    data-time="09:00"
+                >
+                    Қосылу →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 2 -->
+
+        <article class="action-card reveal" data-category="tree">
+
+            <div class="action-visual">
+                <span class="action-tag">ALMATY</span>
+                <div class="visual-icon">🌳</div>
+            </div>
+
+            <div class="action-info">
+
+                <h3>1000 ағаш</h3>
+
+                <p>
+                    Қаланың жасыл аймақтарын көбейтуге
+                    арналған жастардың көгалдандыру
+                    бастамасы.
+                </p>
+
+                <div class="action-meta">
+
+                    <div class="meta-item">
+                        <strong>21 ҚЫРКҮЙЕК</strong>
+                        Күні
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>10:00</strong>
+                        Басталуы
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>124</strong>
+                        Қатысушы
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-footer">
+
+                <div class="people">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <span>+122 адам</span>
+                </div>
+
+                <button
+                    class="action-join"
+                    data-title="1000 ағаш"
+                    data-icon="🌳"
+                    data-location="Алматы"
+                    data-date="21 қыркүйек"
+                    data-time="10:00"
+                >
+                    Қосылу →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 3 -->
+
+        <article class="action-card reveal" data-category="recycle">
+
+            <div class="action-visual">
+                <span class="action-tag">ASTANA</span>
+                <div class="visual-icon">♻️</div>
+            </div>
+
+            <div class="action-info">
+
+                <h3>Plastic Zero</h3>
+
+                <p>
+                    Бір реттік пластикті азайту,
+                    қалдықтарды жинау және қайта
+                    өңдеуге бағыттау акциясы.
+                </p>
+
+                <div class="action-meta">
+
+                    <div class="meta-item">
+                        <strong>18 ҚЫРКҮЙЕК</strong>
+                        Күні
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>11:00</strong>
+                        Басталуы
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>52</strong>
+                        Қатысушы
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-footer">
+
+                <div class="people">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <span>+50 адам</span>
+                </div>
+
+                <button
+                    class="action-join"
+                    data-title="Plastic Zero"
+                    data-icon="♻️"
+                    data-location="Астана"
+                    data-date="18 қыркүйек"
+                    data-time="11:00"
+                >
+                    Қосылу →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 4 -->
+
+        <article class="action-card reveal" data-category="water">
+
+            <div class="action-visual">
+                <span class="action-tag">ALMATY</span>
+                <div class="visual-icon">💧</div>
+            </div>
+
+            <div class="action-info">
+
+                <h3>Таза өзен</h3>
+
+                <p>
+                    Су маңындағы аумақтарды тазалау,
+                    қалдықтарды жинау және табиғи
+                    ортаны қорғау.
+                </p>
+
+                <div class="action-meta">
+
+                    <div class="meta-item">
+                        <strong>28 ҚЫРКҮЙЕК</strong>
+                        Күні
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>08:30</strong>
+                        Басталуы
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>73</strong>
+                        Қатысушы
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-footer">
+
+                <div class="people">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <span>+71 адам</span>
+                </div>
+
+                <button
+                    class="action-join"
+                    data-title="Таза өзен"
+                    data-icon="💧"
+                    data-location="Алматы"
+                    data-date="28 қыркүйек"
+                    data-time="08:30"
+                >
+                    Қосылу →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 5 -->
+
+        <article class="action-card reveal" data-category="clean">
+
+            <div class="action-visual">
+                <span class="action-tag">ТАРАЗ</span>
+                <div class="visual-icon">🧤</div>
+            </div>
+
+            <div class="action-info">
+
+                <h3>Таза аула</h3>
+
+                <p>
+                    Аула мен қоғамдық кеңістіктерді
+                    тазалап, тұрғындарға жайлы орта
+                    қалыптастыру жобасы.
+                </p>
+
+                <div class="action-meta">
+
+                    <div class="meta-item">
+                        <strong>20 ҚЫРКҮЙЕК</strong>
+                        Күні
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>09:30</strong>
+                        Басталуы
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>41</strong>
+                        Қатысушы
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-footer">
+
+                <div class="people">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <span>+39 адам</span>
+                </div>
+
+                <button
+                    class="action-join"
+                    data-title="Таза аула"
+                    data-icon="🧤"
+                    data-location="Тараз"
+                    data-date="20 қыркүйек"
+                    data-time="09:30"
+                >
+                    Қосылу →
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- CARD 6 -->
+
+        <article class="action-card reveal" data-category="tree">
+
+            <div class="action-visual">
+                <span class="action-tag">ШЫМКЕНТ</span>
+                <div class="visual-icon">🌱</div>
+            </div>
+
+            <div class="action-info">
+
+                <h3>Жасыл аула</h3>
+
+                <p>
+                    Жастармен бірге жаңа көшеттер
+                    отырғызып, қаланың жасыл
+                    аумағын кеңейту.
+                </p>
+
+                <div class="action-meta">
+
+                    <div class="meta-item">
+                        <strong>05 ҚАЗАН</strong>
+                        Күні
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>10:00</strong>
+                        Басталуы
+                    </div>
+
+                    <div class="meta-item">
+                        <strong>91</strong>
+                        Қатысушы
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="action-footer">
+
+                <div class="people">
+                    <div class="avatar"></div>
+                    <div class="avatar"></div>
+                    <span>+89 адам</span>
+                </div>
+
+                <button
+                    class="action-join"
+                    data-title="Жасыл аула"
+                    data-icon="🌱"
+                    data-location="Шымкент"
+                    data-date="5 қазан"
+                    data-time="10:00"
+                >
+                    Қосылу →
+                </button>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     OPPORTUNITIES
+===================================================== -->
+
+<section id="jobs" class="opportunities">
+
+<div class="container opportunity-layout">
+
+    <div class="opportunity-intro reveal">
+
+        <div class="section-label">02 / OPPORTUNITIES</div>
+
+        <h2>
+            Экологияға
+            <span>уақытыңды</span>
+            арна.
+        </h2>
+
+        <p>
+            Табиғатты қорғау тек волонтерлікпен шектелмейді.
+            Экологиялық жобаларға қатысып, тәжірибе жина,
+            команда тап және нақты жұмыс мүмкіндіктерін қара.
+        </p>
+
+        <div class="opportunity-note">
+            Әр мүмкіндік — жаңа тәжірибе.
+            Әр әрекет — табиғатқа пайда.
+        </div>
+
+    </div>
+
+
+    <div class="jobs">
+
+
+        <article class="job-card reveal">
+
+            <div class="job-icon">🌿</div>
+
+            <div class="job-content">
+
+                <h3>Экологиялық волонтер</h3>
+
+                <p>Green City Initiative</p>
+
+                <div class="job-tags">
+                    <span class="job-tag">Алматы</span>
+                    <span class="job-tag">4 сағат</span>
+                    <span class="job-tag">Волонтерлік</span>
+                </div>
+
+            </div>
+
+            <button
+                class="job-action"
+                data-job="Экологиялық волонтер"
+            >
+                Өтінім →
+            </button>
+
+        </article>
+
+
+        <article class="job-card reveal">
+
+            <div class="job-icon">🌳</div>
+
+            <div class="job-content">
+
+                <h3>Көгалдандыру көмекшісі</h3>
+
+                <p>Eco Garden Project</p>
+
+                <div class="job-tags">
+                    <span class="job-tag">Астана</span>
+                    <span class="job-tag">2 күн</span>
+                    <span class="job-tag">Жоба</span>
+                </div>
+
+            </div>
+
+            <button
+                class="job-action"
+                data-job="Көгалдандыру көмекшісі"
+            >
+                Өтінім →
+            </button>
+
+        </article>
+
+
+        <article class="job-card reveal">
+
+            <div class="job-icon">♻️</div>
+
+            <div class="job-content">
+
+                <h3>Eco Point координаторы</h3>
+
+                <p>Recycle Kazakhstan</p>
+
+                <div class="job-tags">
+                    <span class="job-tag">Алматы</span>
+                    <span class="job-tag">Part-time</span>
+                    <span class="job-tag">18+</span>
+                </div>
+
+            </div>
+
+            <button
+                class="job-action"
+                data-job="Eco Point координаторы"
+            >
+                Өтінім →
+            </button>
+
+        </article>
+
+
+        <article class="job-card reveal">
+
+            <div class="job-icon">📱</div>
+
+            <div class="job-content">
+
+                <h3>Eco Media Team</h3>
+
+                <p>Жастардың медиа командасы</p>
+
+                <div class="job-tags">
+                    <span class="job-tag">Remote</span>
+                    <span class="job-tag">Контент</span>
+                    <span class="job-tag">Жастар</span>
+                </div>
+
+            </div>
+
+            <button
+                class="job-action"
+                data-job="Eco Media Team"
+            >
+                Өтінім →
+            </button>
+
+        </article>
+
+
+        <article class="job-card reveal">
+
+            <div class="job-icon">💧</div>
+
+            <div class="job-content">
+
+                <h3>Су ресурстары жобасы</h3>
+
+                <p>Clean Water Community</p>
+
+                <div class="job-tags">
+                    <span class="job-tag">Тараз</span>
+                    <span class="job-tag">Жоба</span>
+                    <span class="job-tag">Команда</span>
+                </div>
+
+            </div>
+
+            <button
+                class="job-action"
+                data-job="Су ресурстары жобасы"
+            >
+                Өтінім →
+            </button>
+
+        </article>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     MAP
+===================================================== -->
+
+<section id="map" class="map-section">
+
+<div class="container">
+
+    <div class="section-head reveal">
+
+        <div>
+            <div class="section-label">03 / ECO MAP</div>
+
+            <h2 class="section-title">
+                Қазақстан.<br>
+                Бір экожүйе.
+            </h2>
+        </div>
+
+        <p class="section-description">
+            Қалаңды таңда. Жаныңдағы экологиялық
+            бастамаларды көріп, командаға қосыл.
+        </p>
+
+    </div>
+
+
+    <div class="map-layout">
+
+        <div class="map-box reveal">
+
+            <div class="map-lines"></div>
+
+            <div class="map-top">
+                <h3>Қазақстан ECO MAP</h3>
+                <p>Белсенді экологиялық нүктелер</p>
+            </div>
+
+            <div class="kz-map"></div>
+
+
+            <div class="city almaty" data-city="Алматы">
+                <div class="city-dot"></div>
+                <div class="city-name">Алматы</div>
+            </div>
+
+            <div class="city astana" data-city="Астана">
+                <div class="city-dot"></div>
+                <div class="city-name">Астана</div>
+            </div>
+
+            <div class="city shymkent" data-city="Шымкент">
+                <div class="city-dot"></div>
+                <div class="city-name">Шымкент</div>
+            </div>
+
+            <div class="city taraz" data-city="Тараз">
+                <div class="city-dot"></div>
+                <div class="city-name">Тараз</div>
+            </div>
+
+            <div class="city karaganda" data-city="Қарағанды">
+                <div class="city-dot"></div>
+                <div class="city-name">Қарағанды</div>
+            </div>
+
+
+            <div class="map-legend">
+
+                <div class="legend">
+                    <span class="legend-dot"></span>
+                    Белсенді акция
+                </div>
+
+                <div class="legend">
+                    <span class="legend-dot"></span>
+                    Волонтерлік
+                </div>
+
+                <div class="legend">
+                    <span class="legend-dot"></span>
+                    Жоба
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="city-info reveal" id="cityInfo">
+
+            <div class="section-label">SELECTED CITY</div>
+
+            <div class="big-number">42</div>
+
+            <h3>Алматы</h3>
+
+            <p>
+                Қала бойынша экологиялық акциялар,
+                тазалық жұмыстары және жастар
+                бастамалары.
+            </p>
+
+            <div class="city-stats">
+
+                <div class="city-stat">
+                    <strong>42</strong>
+                    <span>Белсенді акция</span>
+                </div>
+
+                <div class="city-stat">
+                    <strong>3.8K</strong>
+                    <span>Қатысушы</span>
+                </div>
+
+                <div class="city-stat">
+                    <strong>12.4T</strong>
+                    <span>Жиналған қалдық</span>
+                </div>
+
+                <div class="city-stat">
+                    <strong>1.9K</strong>
+                    <span>Ағаш</span>
+                </div>
+
+            </div>
+
+            <button
+                class="primary-btn"
+                style="margin-top:22px;width:100%;"
+                onclick="showToast('Алматыдағы акциялар жүктелді')"
+            >
+                Алматы акцияларын көру →
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     CHALLENGE
+===================================================== -->
+
+<section class="challenge">
+
+<div class="container">
+
+    <div class="challenge-card reveal">
+
+        <div class="challenge-content">
+
+            <span class="challenge-badge">
+                ECO CHALLENGE
+            </span>
+
+            <h2>
+                30 күн.<br>
+                <span>30 әрекет.</span>
+            </h2>
+
+            <p>
+                Бір ай бойы күн сайын табиғатқа пайдалы
+                бір әрекет жаса. Қоқысты сұрыпта,
+                пластикті азайт, ағаш отырғыз,
+                қоғамдық орындарды таза ұста.
+            </p>
+
+            <div class="challenge-actions">
+
+                <button
+                    class="primary-btn"
+                    onclick="startChallenge()"
+                >
+                    Challenge бастау →
+                </button>
+
+                <button
+                    class="secondary-btn"
+                    onclick="showToast('Challenge ережелері ашылды')"
+                >
+                    Ережелер
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     LEADERBOARD
+===================================================== -->
+
+<section id="leaderboard">
+
+<div class="container">
+
+    <div class="section-head reveal">
+
+        <div>
+            <div class="section-label">04 / ECO COMMUNITY</div>
+
+            <h2 class="section-title">
+                Жақсылық<br>
+                рейтингі.
+            </h2>
+        </div>
+
+        <p class="section-description">
+            Әрбір әрекет есепке алынады.
+            Өзіңнің Eco Score көрсеткішіңді
+            өсіріп, қауымдастыққа үлес қос.
+        </p>
+
+    </div>
+
+
+    <div class="leader-layout">
+
+        <div class="score-card reveal">
+
+            <div class="score-small">
+                YOUR ECO SCORE
+            </div>
+
+            <div class="score-number" id="score">
+                740
+            </div>
+
+            <div class="score-level">
+                ECO HERO · LEVEL 07
+            </div>
+
+            <div class="progress">
+                <span id="scoreProgress"></span>
+            </div>
+
+            <div class="score-details">
+
+                <div class="score-detail">
+                    <strong id="treeCount">12</strong>
+                    <span>Ағаш</span>
+                </div>
+
+                <div class="score-detail">
+                    <strong id="actionCount">6</strong>
+                    <span>Акция</span>
+                </div>
+
+                <div class="score-detail">
+                    <strong>34 кг</strong>
+                    <span>Сұрыптау</span>
+                </div>
+
+                <div class="score-detail">
+                    <strong>4</strong>
+                    <span>Шақырған дос</span>
+                </div>
+
+            </div>
+
+            <button
+                class="primary-btn"
+                style="width:100%;margin-top:20px;"
+                onclick="addEcoPoints()"
+            >
+                + Eco Action қосу
+            </button>
+
+        </div>
+
+
+        <div class="leaderboard reveal">
+
+            <div class="leader-head">
+                <span>№</span>
+                <span>Қатысушы</span>
+                <span>Score</span>
+            </div>
+
+
+            <div class="leader-row">
+
+                <div class="rank">01</div>
+
+                <div class="person">
+                    <div class="person-avatar">🌱</div>
+                    <div>
+                        <strong>Аружан</strong>
+                        <span>Алматы</span>
+                    </div>
+                </div>
+
+                <div class="points">2,840</div>
+
+            </div>
+
+
+            <div class="leader-row">
+
+                <div class="rank">02</div>
+
+                <div class="person">
+                    <div class="person-avatar">🌿</div>
+                    <div>
+                        <strong>Данияр</strong>
+                        <span>Астана</span>
+                    </div>
+                </div>
+
+                <div class="points">2,410</div>
+
+            </div>
+
+
+            <div class="leader-row">
+
+                <div class="rank">03</div>
+
+                <div class="person">
+                    <div class="person-avatar">🌳</div>
+                    <div>
+                        <strong>Мадина</strong>
+                        <span>Шымкент</span>
+                    </div>
+                </div>
+
+                <div class="points">2,180</div>
+
+            </div>
+
+
+            <div class="leader-row">
+
+                <div class="rank">04</div>
+
+                <div class="person">
+                    <div class="person-avatar">♻️</div>
+                    <div>
+                        <strong>Әли</strong>
+                        <span>Алматы</span>
+                    </div>
+                </div>
+
+                <div class="points">1,920</div>
+
+            </div>
+
+
+            <div class="leader-row">
+
+                <div class="rank">05</div>
+
+                <div class="person">
+                    <div class="person-avatar">💧</div>
+                    <div>
+                        <strong>Айша</strong>
+                        <span>Тараз</span>
+                    </div>
+                </div>
+
+                <div class="points">1,740</div>
+
+            </div>
+
+
+            <div class="leader-row">
+
+                <div class="rank">06</div>
+
+                <div class="person">
+                    <div class="person-avatar">🌎</div>
+                    <div>
+                        <strong>Нұрлан</strong>
+                        <span>Қарағанды</span>
+                    </div>
+                </div>
+
+                <div class="points">1,580</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     IMPACT
+===================================================== -->
+
+<section id="impact" class="impact">
+
+<div class="container">
+
+    <div class="section-head reveal">
+
+        <div>
+            <div class="section-label">05 / REAL IMPACT</div>
+
+            <h2 class="section-title">
+                Әр әрекет<br>
+                із қалдырады.
+            </h2>
+        </div>
+
+        <p class="section-description">
+            Бұл сандар — платформаның демонстрациялық
+            статистикасы. Нақты жоба іске қосылғанда
+            көрсеткіштер акциялардан жиналады.
+        </p>
+
+    </div>
+
+
+    <div class="impact-grid reveal">
+
+        <div class="impact-item">
+
+            <div class="impact-number" data-target="12480">
+                0
+            </div>
+
+            <h3>Жас қатысушы</h3>
+
+            <p>Экологиялық қауымдастық</p>
+
+        </div>
+
+
+        <div class="impact-item">
+
+            <div class="impact-number" data-target="38240">
+                0
+            </div>
+
+            <h3>Кг қалдық</h3>
+
+            <p>Жиналып, сұрыпталды</p>
+
+        </div>
+
+
+        <div class="impact-item">
+
+            <div class="impact-number" data-target="8920">
+                0
+            </div>
+
+            <h3>Ағаш</h3>
+
+            <p>Отырғызылған көшет</p>
+
+        </div>
+
+
+        <div class="impact-item">
+
+            <div class="impact-number" data-target="146">
+                0
+            </div>
+
+            <h3>Акция</h3>
+
+            <p>Қазақстан бойынша</p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about">
+
+<div class="container about-layout">
+
+    <div class="about-visual reveal">
+
+        <div class="about-orbit"></div>
+
+        <div class="leaf"></div>
+        <div class="leaf leaf-two"></div>
+        <div class="leaf leaf-three"></div>
+
+        <div class="about-core">
+            🌱
+        </div>
+
+    </div>
+
+
+    <div class="about-text reveal">
+
+        <div class="section-label">
+            06 / ABOUT ECO YOUTH
+        </div>
+
+        <h2>
+            Экология —
+            <span>әрекет.</span>
+        </h2>
+
+        <p>
+            ECO YOUTH идеясы өте қарапайым:
+            табиғатты қорғауға ниеті бар жастарды
+            бір жерге жинау.
+        </p>
+
+        <p>
+            Біз экологиялық акцияларды, волонтерлік
+            жұмыстарды, жастар жобаларын және
+            пайдалы бастамаларды бір цифрлық ортада
+            біріктіреміз.
+        </p>
+
+        <div class="about-points">
+
+            <div class="about-point">
+                <strong>01 / Қатыс</strong>
+                <span>
+                    Өзіңе жақын акцияны таңда.
+                </span>
+            </div>
+
+            <div class="about-point">
+                <strong>02 / Әрекет ет</strong>
+                <span>
+                    Уақытыңды пайдалы іске арна.
+                </span>
+            </div>
+
+            <div class="about-point">
+                <strong>03 / Нәтиже қалдыр</strong>
+                <span>
+                    Eco Score арқылы әсеріңді бақыла.
+                </span>
+            </div>
+
+            <div class="about-point">
+                <strong>04 / Досыңды шақыр</strong>
+                <span>
+                    Жақсылықты бірге көбейт.
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     JOIN
+===================================================== -->
+
+<section id="join" class="join-section">
+
+<div class="container">
+
+    <div class="join-box reveal">
+
+        <div>
+
+            <div class="section-label">
+                07 / JOIN THE MOVEMENT
+            </div>
+
+            <h2>
+                Сенің қалаң.<br>
+                Сенің <span>әрекетің.</span>
+            </h2>
+
+            <p>
+                Экологиялық қауымдастыққа қосыл.
+                Қандай идеяң бар екенін бізге айт.
+                Бірге жаңа акция, жоба немесе бастама жасайық.
+            </p>
+
+        </div>
+
+
+        <form class="join-form" id="joinForm">
+
+            <input
+                class="input"
+                type="text"
+                id="name"
+                placeholder="Атың"
+                required
+            >
+
+            <input
+                class="input"
+                type="text"
+                id="city"
+                placeholder="Қалаң"
+                required
+            >
+
+            <select class="input" id="interest" required>
+                <option value="">Қызығушылық бағыты</option>
+                <option>Тазалық акциялары</option>
+                <option>Ағаш отырғызу</option>
+                <option>Қалдықтарды сұрыптау</option>
+                <option>Су ресурстары</option>
+                <option>Eco Media</option>
+                <option>Өз жобам бар</option>
+            </select>
+
+            <textarea
+                class="input"
+                id="idea"
+                placeholder="Экологияға қатысты идеяң..."
+            ></textarea>
+
+            <button class="primary-btn" type="submit">
+                Қауымдастыққа қосылу →
+            </button>
+
+            <div class="form-message" id="formMessage">
+                🌱 Өтінім қабылданды! Бұл демонстрациялық нұсқа.
+                Нақты жобаға backend/Firebase қосылғанда
+                өтінімдер базаға сақталады.
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+<div class="container footer-inner">
+
+    <div class="logo">
+        <div class="logo-symbol">E</div>
+        <div class="logo-text">ECO<span>YOUTH</span></div>
+    </div>
+
+    <div class="footer-copy">
+        © 2026 ECO YOUTH — Табиғат үшін бірге.
+    </div>
+
+    <div class="footer-links">
+        <a href="#actions">Акциялар</a>
+        <a href="#jobs">Мүмкіндіктер</a>
+        <a href="#about">Жоба</a>
+        <a href="#join">Қосылу</a>
+    </div>
+
+</div>
+
+</footer>
+
+
+<!-- =====================================================
+     ACTION MODAL
+===================================================== -->
+
+<div class="modal" id="actionModal">
+
+    <div class="modal-box">
+
+        <button class="modal-close" id="modalClose">
+            ×
+        </button>
+
+        <div class="modal-icon" id="modalIcon">
+            🌱
+        </div>
+
+        <h2 id="modalTitle">
+            Экологиялық акция
+        </h2>
+
+        <p>
+            Бұл акцияға қосылып, қалаңның табиғи
+            ортасын жақсартуға өз үлесіңді қоса аласың.
+        </p>
+
+        <div class="modal-info">
+
+            <div class="modal-info-item">
+                <span>ОРНЫ</span>
+                <strong id="modalLocation">Алматы</strong>
+            </div>
+
+            <div class="modal-info-item">
+                <span>КҮНІ</span>
+                <strong id="modalDate">14 қыркүйек</strong>
+            </div>
+
+            <div class="modal-info-item">
+                <span>БАСТАЛУЫ</span>
+                <strong id="modalTime">09:00</strong>
+            </div>
+
+            <div class="modal-info-item">
+                <span>СЕНІҢ СЫЙЛЫҒЫҢ</span>
+                <strong>+120 Eco Points</strong>
+            </div>
+
+        </div>
+
+        <button
+            class="primary-btn"
+            style="width:100%;"
+            id="confirmAction"
+        >
+            Акцияға қосыламын →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JOB MODAL
+===================================================== -->
+
+<div class="modal" id="jobModal">
+
+    <div class="modal-box">
+
+        <button
+            class="modal-close"
+            onclick="closeJobModal()"
+        >
+            ×
+        </button>
+
+        <div class="modal-icon">
+            💼
+        </div>
+
+        <h2 id="jobTitle">
+            Экологиялық жұмыс
+        </h2>
+
+        <p>
+            Бұл мүмкіндікке қызығушылық білдіріп,
+            жоба командасына өз өтініміңді қалдыр.
+        </p>
+
+        <div style="margin-top:20px">
+
+            <input
+                class="input"
+                id="jobName"
+                placeholder="Атың"
+            >
+
+        </div>
+
+        <div style="margin-top:10px">
+
+            <input
+                class="input"
+                id="jobCity"
+                placeholder="Қалаң"
+            >
+
+        </div>
+
+        <button
+            class="primary-btn"
+            style="width:100%;margin-top:12px;"
+            onclick="submitJob()"
+        >
+            Өтінім жіберу →
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="toast" id="toast">
+    Eco Action орындалды 🌱
+</div>
+
+
+<script>
+/* =========================================================
+   ECO YOUTH — JAVASCRIPT
+========================================================= */
+
+
+/* ---------------------------------------------------------
+   NAVBAR
+--------------------------------------------------------- */
+
+const navbar = document.getElementById("navbar");
+
+window.addEventListener("scroll", () => {
+
+    if(window.scrollY > 30){
+        navbar.classList.add("scrolled");
+    }else{
+        navbar.classList.remove("scrolled");
+    }
+
+});
+
+
+/* ---------------------------------------------------------
+   MOBILE MENU
+--------------------------------------------------------- */
+
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+menuBtn.addEventListener("click", () => {
+
+    navLinks.classList.toggle("open");
+
+    menuBtn.textContent =
+        navLinks.classList.contains("open")
+        ? "×"
+        : "☰";
+
+});
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        navLinks.classList.remove("open");
+        menuBtn.textContent = "☰";
+
+    });
+
+});
+
+
+/* ---------------------------------------------------------
+   THEME
+--------------------------------------------------------- */
+
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.addEventListener("click", () => {
+
+    document.body.classList.toggle("light");
+
+    const isLight =
+        document.body.classList.contains("light");
+
+    themeBtn.textContent = isLight ? "☾" : "☼";
+
+    localStorage.setItem(
+        "eco-theme",
+        isLight ? "light" : "dark"
+    );
+
+});
+
+
+if(localStorage.getItem("eco-theme") === "light"){
+
+    document.body.classList.add("light");
+    themeBtn.textContent = "☾";
+
+}
+
+
+/* ---------------------------------------------------------
+   LANGUAGE DEMO
+--------------------------------------------------------- */
+
+const langBtn = document.getElementById("langBtn");
+
+let languages = ["KZ","RU","EN"];
+let languageIndex = 0;
+
+langBtn.addEventListener("click", () => {
+
+    languageIndex++;
+
+    if(languageIndex >= languages.length){
+        languageIndex = 0;
+    }
+
+    langBtn.textContent =
+        languages[languageIndex];
+
+    showToast(
+        "Тіл: " + languages[languageIndex]
+    );
+
+});
+
+
+/* ---------------------------------------------------------
+   REVEAL ON SCROLL
+--------------------------------------------------------- */
+
+const revealElements =
+    document.querySelectorAll(".reveal");
+
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if(entry.isIntersecting){
+
+                    entry.target.classList.add("visible");
+
+                    revealObserver.unobserve(
+                        entry.target
+                    );
+
+                }
+
+            });
+
+        },
+        {
+            threshold:.12
+        }
+    );
+
+revealElements.forEach(el => {
+    revealObserver.observe(el);
+});
+
+
+/* ---------------------------------------------------------
+   ACTION FILTER
+--------------------------------------------------------- */
+
+const filterButtons =
+    document.querySelectorAll(".filter-btn");
+
+const actionCards =
+    document.querySelectorAll(".action-card");
+
+filterButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        filterButtons.forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        const filter =
+            button.dataset.filter;
+
+        actionCards.forEach(card => {
+
+            if(
+                filter === "all" ||
+                card.dataset.category === filter
+            ){
+
+                card.style.display = "flex";
+
+                setTimeout(() => {
+                    card.style.opacity = "1";
+                    card.style.transform = "translateY(0)";
+                },20);
+
+            }else{
+
+                card.style.opacity = "0";
+                card.style.transform = "translateY(10px)";
+
+                setTimeout(() => {
+                    card.style.display = "none";
+                },200);
+
+            }
+
+        });
+
+    });
+
+});
+
+
+/* ---------------------------------------------------------
+   ACTION MODAL
+--------------------------------------------------------- */
+
+const actionModal =
+    document.getElementById("actionModal");
+
+const modalClose =
+    document.getElementById("modalClose");
+
+const modalTitle =
+    document.getElementById("modalTitle");
+
+const modalIcon =
+    document.getElementById("modalIcon");
+
+const modalLocation =
+    document.getElementById("modalLocation");
+
+const modalDate =
+    document.getElementById("modalDate");
+
+const modalTime =
+    document.getElementById("modalTime");
+
+const confirmAction =
+    document.getElementById("confirmAction");
+
+let selectedAction = null;
+
+document.querySelectorAll(".action-join")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        selectedAction = button.dataset.title;
+
+        modalTitle.textContent =
+            button.dataset.title;
+
+        modalIcon.textContent =
+            button.dataset.icon;
+
+        modalLocation.textContent =
+            button.dataset.location;
+
+        modalDate.textContent =
+            button.dataset.date;
+
+        modalTime.textContent =
+            button.dataset.time;
+
+        actionModal.classList.add("open");
+
+    });
+
+});
+
+
+modalClose.addEventListener("click", () => {
+
+    actionModal.classList.remove("open");
+
+});
+
+
+actionModal.addEventListener("click", event => {
+
+    if(event.target === actionModal){
+
+        actionModal.classList.remove("open");
+
+    }
+
+});
+
+
+confirmAction.addEventListener("click", () => {
+
+    actionModal.classList.remove("open");
+
+    addEcoPoints(120);
+
+    showToast(
+        "Сен «" + selectedAction +
+        "» акциясына қосылдың! 🌱"
+    );
+
+});
+
+
+/* ---------------------------------------------------------
+   JOB MODAL
+--------------------------------------------------------- */
+
+const jobModal =
+    document.getElementById("jobModal");
+
+const jobTitle =
+    document.getElementById("jobTitle");
+
+document.querySelectorAll(".job-action")
+.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        jobTitle.textContent =
+            button.dataset.job;
+
+        jobModal.classList.add("open");
+
+    });
+
+});
+
+
+function closeJobModal(){
+
+    jobModal.classList.remove("open");
+
+}
+
+
+function submitJob(){
+
+    const name =
+        document.getElementById("jobName").value;
+
+    const city =
+        document.getElementById("jobCity").value;
+
+    if(!name || !city){
+
+        showToast(
+            "Атың мен қалаңды енгіз."
+        );
+
+        return;
+
+    }
+
+    closeJobModal();
+
+    showToast(
+        "Өтінім қабылданды. Рақмет, " +
+        name + "! 🌿"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   ECO SCORE
+--------------------------------------------------------- */
+
+let ecoScore =
+    Number(
+        localStorage.getItem("eco-score")
+    ) || 740;
+
+const scoreElement =
+    document.getElementById("score");
+
+const progressElement =
+    document.getElementById("scoreProgress");
+
+function updateScore(){
+
+    scoreElement.textContent =
+        ecoScore.toLocaleString("kk-KZ");
+
+    const progress =
+        Math.min(100,(ecoScore % 1000)/10);
+
+    progressElement.style.width =
+        progress + "%";
+
+    localStorage.setItem(
+        "eco-score",
+        ecoScore
+    );
+
+}
+
+updateScore();
+
+
+function addEcoPoints(points = 50){
+
+    ecoScore += points;
+
+    updateScore();
+
+    showToast(
+        "+" + points +
+        " Eco Points қосылды! 🌱"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   CHALLENGE
+--------------------------------------------------------- */
+
+function startChallenge(){
+
+    localStorage.setItem(
+        "eco-challenge",
+        "started"
+    );
+
+    addEcoPoints(30);
+
+    showToast(
+        "30 күндік Eco Challenge басталды! 🔥"
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   JOIN FORM
+--------------------------------------------------------- */
+
+const joinForm =
+    document.getElementById("joinForm");
+
+const formMessage =
+    document.getElementById("formMessage");
+
+joinForm.addEventListener("submit", event => {
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("name").value;
+
+    const city =
+        document.getElementById("city").value;
+
+    const interest =
+        document.getElementById("interest").value;
+
+    if(!name || !city || !interest){
+
+        showToast(
+            "Барлық қажетті жолды толтыр."
+        );
+
+        return;
+
+    }
+
+    formMessage.style.display = "block";
+
+    addEcoPoints(100);
+
+    showToast(
+        "ECO YOUTH қауымдастығына қош келдің! 🌱"
+    );
+
+    joinForm.reset();
+
+});
+
+
+/* ---------------------------------------------------------
+   CITY MAP
+--------------------------------------------------------- */
+
+const cityData = {
+
+    "Алматы":{
+        number:"42",
+        people:"3.8K",
+        waste:"12.4T",
+        trees:"1.9K"
+    },
+
+    "Астана":{
+        number:"31",
+        people:"2.7K",
+        waste:"9.2T",
+        trees:"2.1K"
+    },
+
+    "Шымкент":{
+        number:"27",
+        people:"2.1K",
+        waste:"7.8T",
+        trees:"1.6K"
+    },
+
+    "Тараз":{
+        number:"18",
+        people:"1.4K",
+        waste:"4.1T",
+        trees:"930"
+    },
+
+    "Қарағанды":{
+        number:"24",
+        people:"1.9K",
+        waste:"5.7T",
+        trees:"1.2K"
+    }
+
+};
+
+
+document.querySelectorAll(".city")
+.forEach(city => {
+
+    city.addEventListener("click", () => {
+
+        const name =
+            city.dataset.city;
+
+        const data =
+            cityData[name];
+
+        if(!data) return;
+
+        document.querySelector(
+            "#cityInfo .big-number"
+        ).textContent = data.number;
+
+        document.querySelector(
+            "#cityInfo h3"
+        ).textContent = name;
+
+        const stats =
+            document.querySelectorAll(
+                "#cityInfo .city-stat strong"
+            );
+
+        stats[0].textContent =
+            data.number;
+
+        stats[1].textContent =
+            data.people;
+
+        stats[2].textContent =
+            data.waste;
+
+        stats[3].textContent =
+            data.trees;
+
+        showToast(
+            name + " таңдалды 📍"
+        );
+
+    });
+
+});
+
+
+/* ---------------------------------------------------------
+   IMPACT COUNTERS
+--------------------------------------------------------- */
+
+let countersStarted = false;
+
+const impactSection =
+    document.querySelector(".impact");
+
+const impactNumbers =
+    document.querySelectorAll(".impact-number");
+
+const impactObserver =
+    new IntersectionObserver(
+        entries => {
+
+            if(
+                entries[0].isIntersecting &&
+                !countersStarted
+            ){
+
+                countersStarted = true;
+
+                impactNumbers.forEach(counter => {
+
+                    const target =
+                        Number(counter.dataset.target);
+
+                    let current = 0;
+
+                    const duration = 1700;
+
+                    const start =
+                        performance.now();
+
+                    function animate(time){
+
+                        const progress =
+                            Math.min(
+                                (time-start)/duration,
+                                1
+                            );
+
+                        const eased =
+                            1-Math.pow(
+                                1-progress,
+                                4
+                            );
+
+                        current =
+                            Math.floor(
+                                target*eased
+                            );
+
+                        counter.textContent =
+                            current.toLocaleString(
+                                "kk-KZ"
+                            );
+
+                        if(progress < 1){
+
+                            requestAnimationFrame(
+                                animate
+                            );
+
+                        }else{
+
+                            counter.textContent =
+                                target.toLocaleString(
+                                    "kk-KZ"
+                                );
+
+                        }
+
+                    }
+
+                    requestAnimationFrame(
+                        animate
+                    );
+
+                });
+
+            }
+
+        },
+        {
+            threshold:.25
+        }
+    );
+
+impactObserver.observe(impactSection);
+
+
+/* ---------------------------------------------------------
+   TOAST
+--------------------------------------------------------- */
+
+const toast =
+    document.getElementById("toast");
+
+let toastTimer;
+
+function showToast(message){
+
+    toast.textContent =
+        message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        },3000);
+
+}
+
+
+/* ---------------------------------------------------------
+   ESCAPE KEY
+--------------------------------------------------------- */
+
+document.addEventListener("keydown", event => {
+
+    if(event.key === "Escape"){
+
+        actionModal.classList.remove("open");
+        jobModal.classList.remove("open");
+
+    }
+
+});
+
+
+/* ---------------------------------------------------------
+   PLANET PARALLAX
+--------------------------------------------------------- */
+
+const planet =
+    document.querySelector(".planet");
+
+document.addEventListener("mousemove", event => {
+
+    const x =
+        (event.clientX/window.innerWidth-.5);
+
+    const y =
+        (event.clientY/window.innerHeight-.5);
+
+    if(window.innerWidth > 900){
+
+        planet.style.marginLeft =
+            (x*18)+"px";
+
+        planet.style.marginTop =
+            (y*12)+"px";
+
+    }
+
+});
+
+
+/* ---------------------------------------------------------
+   RANDOM ECO QUOTE
+--------------------------------------------------------- */
+
+const quotes = [
+
+    "Табиғатты қорғау — болашақты қорғау.",
+
+    "Таза қала өзімізден басталады.",
+
+    "Бір ағаш — бір үміт.",
+
+    "Кішкентай әрекет үлкен өзгеріс әкеледі.",
+
+    "Табиғатқа жасаған жақсылығың өзіңе қайтады.",
+
+    "Жастар бар жерде өзгеріс бар."
+
+];
+
+setInterval(() => {
+
+    const random =
+        quotes[
+            Math.floor(
+                Math.random()*quotes.length
+            )
+        ];
+
+    document.title =
+        "ECO YOUTH — " + random;
+
+},7000);
+
+
+/* ---------------------------------------------------------
+   CONSOLE BRAND
+--------------------------------------------------------- */
+
+console.log(
+`
+╔══════════════════════════════════════╗
+║              ECO YOUTH               ║
+║                                      ║
+║       ECO • YOUTH • ACTION            ║
+║                                      ║
+║   Табиғатты өзгерт. Өзіңнен баста.   ║
+╚══════════════════════════════════════╝
+`
+);
+
+</script>
+
+</body>
+</html>
