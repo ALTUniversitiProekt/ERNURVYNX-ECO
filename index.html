@@ -3,6 +3,619 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030a06">
+<meta name="description" content="ECO YOUTH 2030 — Жастарға арналған веб3 & эко-футуристикалық платформа.">
+<title>ECO YOUTH — Болашақ Тірі Әлем</title>
+
+<!-- Шрифттер -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Three.js (3D ағаш жасауға арналған) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+<style>
+/* =========================================================
+   CYBER-ECOLOGY Theme System
+========================================================= */
+:root {
+    --bg: #030a06;
+    --bg-card: rgba(10, 25, 17, 0.65);
+    --neon-green: #00ff66;
+    --neon-glow: rgba(0, 255, 102, 0.4);
+    --lime: #b7f34b;
+    --cyan: #00f0ff;
+    --white: #ffffff;
+    --text: #e1f5fe;
+    --muted: #627d71;
+    --border: rgba(0, 255, 102, 0.2);
+    --border-hover: rgba(0, 255, 102, 0.6);
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --max-w: 1280px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Фондық футуристік тор мен голограмма */
+.cyber-grid {
+    position: fixed;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(0, 255, 102, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 102, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -2;
+    pointer-events: none;
+}
+
+.ambient-glow {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--neon-glow) 0%, transparent 70%);
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+    filter: blur(80px);
+    pointer-events: none;
+}
+
+.container {
+    width: min(var(--max-w), calc(100% - 40px));
+    margin: auto;
+}
+
+/* =========================================================
+   NAVIGATION (CYBERBAR)
+========================================================= */
+.navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(var(--max-w), calc(100% - 40px));
+    z-index: 100;
+    background: rgba(5, 15, 10, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--white);
+    letter-spacing: 1px;
+}
+
+.logo-icon {
+    width: 35px;
+    height: 35px;
+    background: var(--neon-green);
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--neon-green);
+    text-shadow: 0 0 8px var(--neon-green);
+}
+
+.token-badge {
+    background: rgba(0, 255, 102, 0.1);
+    border: 1px solid var(--neon-green);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    color: var(--lime);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* =========================================================
+   HERO & 3D CANVAS
+========================================================= */
+.hero {
+    min-height: 100vh;
+    padding-top: 140px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    position: relative;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--neon-green), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-content p {
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 500px;
+}
+
+.cta-group {
+    display: flex;
+    gap: 15px;
+}
+
+.cyber-btn {
+    position: relative;
+    padding: 16px 32px;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #000;
+    background: var(--neon-green);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.3s;
+    box-shadow: 0 0 25px var(--neon-glow);
+    text-transform: uppercase;
+}
+
+.cyber-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 40px var(--neon-green);
+}
+
+.cyber-btn-outline {
+    background: transparent;
+    color: var(--neon-green);
+    border: 1px solid var(--neon-green);
+    box-shadow: none;
+}
+
+.cyber-btn-outline:hover {
+    background: rgba(0, 255, 102, 0.1);
+}
+
+/* 3D Container */
+#canvas-container {
+    width: 100%;
+    height: 550px;
+    position: relative;
+    border-radius: 24px;
+    background: radial-gradient(circle, rgba(0,255,102,0.05) 0%, transparent 70%);
+    border: 1px solid var(--border);
+}
+
+.canvas-hint {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    pointer-events: none;
+}
+
+/* =========================================================
+   INTERACTIVE SECTIONS (FEATURES)
+========================================================= */
+.section-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 100px;
+}
+
+.cyber-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    transition: 0.3s;
+    position: relative;
+}
+
+.cyber-card:hover {
+    border-color: var(--neon-green);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 255, 102, 0.15);
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.cyber-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.cyber-card p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   SIMULATOR / TREE GROWTH SECTION
+========================================================= */
+.simulator-section {
+    background: rgba(0, 255, 102, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 40px;
+    margin-bottom: 100px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.sim-controls label {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: var(--lime);
+}
+
+.sim-slider {
+    width: 100%;
+    margin-top: 8px;
+    accent-color: var(--neon-green);
+}
+
+.sim-results {
+    background: rgba(0,0,0,0.5);
+    padding: 25px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+}
+
+.result-val {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    color: var(--neon-green);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .hero, .simulator-section {
+        grid-template-columns: 1fr;
+    }
+    .nav-links {
+        display: none;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="cyber-grid"></div>
+<div class="ambient-glow"></div>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="logo">
+        <div class="logo-icon">🌱</div>
+        <span>ECO YOUTH 2030</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#about">Миссия</a></li>
+        <li><a href="#features">Инновация</a></li>
+        <li><a href="#simulator">3D Эко-Симулятор</a></li>
+    </ul>
+    <div class="token-badge">
+        <span>⚡ 1 GREEN = 1,000 ₸</span>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<div class="container">
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Болашақты <br><span class="text-gradient">Өз Қолыңмен</span> Бағдарламала</h1>
+            <p>Жастарға арналған Web3 технологияларымен біріктірілген эко-платформа. Әрбір отырғызылған ағаш сандық әлемде 3D NFT-ке айналады.</p>
+            <div class="cta-group">
+                <button class="cyber-btn" onclick="growTreeAction()">Ағаш Өсіру (+100 XP)</button>
+                <button class="cyber-btn cyber-btn-outline">AI Эко-Сканер</button>
+            </div>
+        </div>
+
+        <!-- 3D Tree Canvas -->
+        <div id="canvas-container">
+            <div class="canvas-hint">🖱️ Тышқанмен 3D Ағашты Айналдырыңыз</div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <h2 class="section-title" id="features">Неге Жас Эколог Болу "Круто"?</h2>
+    <div class="grid-3">
+        <div class="cyber-card">
+            <div class="card-icon">🤖</div>
+            <h3>AI Сұрыптау Сканері</h3>
+            <p>Қоқысты камераға көрсет — жасанды интеллект оның түрін анықтап, саған GreenCoin крипто-баллын береді.</p>
+        </div>
+        <div class="cyber-card">
+            <div class="card-icon">🌳</div>
+            <h3>3D Цифрлық Деректер</h3>
+            <p>Сенің отырғызған шынайы ағашың базаға тіркеліп, платформада 3D NFT түрінде өсіп отырады.</p>
+        </div>
+        <div class="cyber-card">
+            <div class="card-icon">🏆</div>
+            <h3>Эко-Кландар мен Рейтинг</h3>
+            <p>Достарыңмен мектеп немесе университет атынан эко-жарысқа қатысып, гранттар мен жүлделер ұтып ал.</p>
+        </div>
+    </div>
+
+    <!-- ECO SIMULATOR SECTION -->
+    <h2 class="section-title" id="simulator">Болашақ Маркері: Әсер Калькуляторы</h2>
+    <div class="simulator-section">
+        <div class="sim-controls">
+            <h3>Селфи емес, Ағаш қалдыр!</h3>
+            <p style="color:var(--muted); margin-bottom:15px; font-size: 0.9rem;">Слайдерді жылжыту арқылы табиғатты қалай құтқаратыныңды есепте:</p>
+            
+            <label>Сен және достарың отырғызатын ағаш саны: <b id="treeCountText" style="color:var(--neon-green)">10</b></label>
+            <input type="range" min="1" max="500" value="10" class="sim-slider" id="treeSlider">
+
+            <label>Уақыт аралығы (Жыл): <b id="yearText" style="color:var(--cyan)">5</b></label>
+            <input type="range" min="1" max="20" value="5" class="sim-slider" id="yearSlider">
+        </div>
+
+        <div class="sim-results">
+            <p style="font-size:0.85rem; color:var(--muted)">ТАЗАЛАНАТЫН КӨМІРТЕК (CO₂):</p>
+            <div class="result-val"><span id="co2Val">110</span> кг/жыл</div>
+            
+            <p style="font-size:0.85rem; color:var(--muted); margin-top:20px;">БӨЛІНЕТІН КӨМІРТЕК ТОТЫҒЫ (ОТТЕГІ):</p>
+            <div class="result-val" style="color:var(--lime)"><span id="o2Val">600</span> күнге жетерлік</div>
+        </div>
+    </div>
+</div>
+
+<!-- Three.JS 3D АҒАШ СКРИПТІ -->
+<script>
+let scene, camera, renderer, treeGroup;
+
+function init3D() {
+    const container = document.getElementById('canvas-container');
+    
+    // Scene
+    scene = new THREE.Scene();
+
+    // Camera
+    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 4, 12);
+
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
+
+    // Controls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 1.5;
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0x00ff66, 1.2);
+    dirLight.position.set(5, 10, 7);
+    scene.add(dirLight);
+
+    const blueLight = new THREE.PointLight(0x00f0ff, 2, 10);
+    blueLight.position.set(-5, 2, -2);
+    scene.add(blueLight);
+
+    // Build Cyber-Tree
+    treeGroup = new THREE.Group();
+    createCyberTree();
+    scene.add(treeGroup);
+
+    // Resize event
+    window.addEventListener('resize', onWindowResize);
+
+    // Animation Loop
+    animate();
+}
+
+function createCyberTree() {
+    // Trunk (Ағаш діңі)
+    const trunkGeo = new THREE.CylinderGeometry(0.3, 0.6, 4, 8);
+    const trunkMat = new THREE.MeshStandardMaterial({ 
+        color: 0x051d12, 
+        roughness: 0.3,
+        wireframe: false 
+    });
+    const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+    trunk.position.y = 2;
+    treeGroup.add(trunk);
+
+    // Foliage (Голографикалық Жас жапырақтар - Икосаэдр)
+    const leafMat = new THREE.MeshStandardMaterial({
+        color: 0x00ff66,
+        wireframe: true,
+        emissive: 0x004411,
+        transparent: true,
+        opacity: 0.8
+    });
+
+    const level1 = new THREE.Mesh(new THREE.IcosahedronGeometry(1.8, 1), leafMat);
+    level1.position.y = 4.2;
+    treeGroup.add(level1);
+
+    const level2 = new THREE.Mesh(new THREE.IcosahedronGeometry(1.3, 1), leafMat);
+    level2.position.y = 5.5;
+    treeGroup.add(level2);
+
+    // Glowing Particles (Бөлшектер - Қалқымалы жарықтар)
+    const particlesGeo = new THREE.BufferGeometry();
+    const count = 70;
+    const posArray = new Float32Array(count * 3);
+
+    for(let i=0; i<count*3; i+=3) {
+        posArray[i] = (Math.random() - 0.5) * 6;
+        posArray[i+1] = Math.random() * 6 + 1;
+        posArray[i+2] = (Math.random() - 0.5) * 6;
+    }
+
+    particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    const particlesMat = new THREE.PointsMaterial({
+        size: 0.08,
+        color: 0xb7f34b,
+        transparent: true,
+        opacity: 0.8
+    });
+
+    const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+    treeGroup.add(particlesMesh);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Бөлшектерді қозғалту
+    if(treeGroup) {
+        treeGroup.rotation.y += 0.003;
+    }
+    
+    renderer.render(scene, camera);
+}
+
+function onWindowResize() {
+    const container = document.getElementById('canvas-container');
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+// Ағаш өсіру реакциясы (Батырма басылғанда)
+function growTreeAction() {
+    let scale = 1;
+    const growInterval = setInterval(() => {
+        scale += 0.05;
+        treeGroup.scale.set(scale, scale, scale);
+        if(scale >= 1.3) {
+            clearInterval(growInterval);
+            setTimeout(() => {
+                treeGroup.scale.set(1, 1, 1);
+            }, 500);
+        }
+    }, 30);
+    alert("🎉 Құттықтаймыз! Сіз 100 XP жинадыңыз және 3D ағашыңызды өсірдіңіз!");
+}
+
+// Калькулятор логикасы
+const treeSlider = document.getElementById('treeSlider');
+const yearSlider = document.getElementById('yearSlider');
+
+function updateSim() {
+    const trees = treeSlider.value;
+    const years = yearSlider.value;
+
+    document.getElementById('treeCountText').innerText = trees;
+    document.getElementById('yearText').innerText = years;
+
+    // 1 ағаш орташа есеппен жылына 22кг CO2 жұтады
+    const co2 = trees * years * 22;
+    // 1 ағаш күніне 2 адамға жетерлік O2 бөледі
+    const o2 = trees * years * 120;
+
+    document.getElementById('co2Val').innerText = co2.toLocaleString();
+    document.getElementById('o2Val').innerText = o2.toLocaleString() + " адамдық";
+}
+
+treeSlider.addEventListener('input', updateSim);
+yearSlider.addEventListener('input', updateSim);
+
+// Старт
+window.onload = () => {
+    init3D();
+    updateSim();
+};
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#07150f">
 <meta name="description" content="ECO YOUTH — жастарды экологиялық әрекетке біріктіретін цифрлық платформа.">
 <title>ECO YOUTH — Табиғат үшін бірге</title>
