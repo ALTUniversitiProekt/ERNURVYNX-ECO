@@ -4649,3 +4649,638 @@ window.addEventListener(
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ERNURVYNX ECO — Жастар. Табиғат. Болашақ.</title>
+<meta name="description" content="ERNURVYNX ECO — жастарды экологияны қорғауға және табиғатты таза ұстауға біріктіретін цифрлық қауымдастық.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--green:#1f8f55;
+--green2:#67c587;
+--dark:#123025;
+--soft:#edf7f0;
+--white:#fff;
+--text:#19352a;
+--muted:#70847a;
+--line:#dcebe2;
+}
+html{scroll-behavior:smooth}
+body{
+font-family:Inter,Arial,sans-serif;
+background:#f7fbf8;
+color:var(--text);
+line-height:1.6;
+overflow-x:hidden
+}
+nav{
+position:fixed;
+top:0;left:0;width:100%;
+height:76px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:rgba(255,255,255,.82);
+backdrop-filter:blur(18px);
+border-bottom:1px solid rgba(31,143,85,.1);
+z-index:1000
+}
+.logo{
+font-size:22px;
+font-weight:900;
+letter-spacing:2px;
+color:var(--dark)
+}
+.logo span{color:var(--green)}
+.navlinks{display:flex;gap:30px}
+.navlinks a{
+text-decoration:none;color:var(--text);
+font-size:14px;font-weight:700
+}
+.navlinks a:hover{color:var(--green)}
+.lang{
+border:1px solid var(--line);
+background:white;
+border-radius:30px;
+padding:9px 14px;
+cursor:pointer;font-weight:800
+}
+.hero{
+min-height:100vh;
+padding:150px 7% 80px;
+display:grid;
+grid-template-columns:1.05fr .95fr;
+gap:50px;
+align-items:center;
+background:
+radial-gradient(circle at 80% 20%,#d9f2df 0,transparent 32%),
+linear-gradient(135deg,#f8fcf9,#edf7f0)
+}
+.badge{
+display:inline-flex;
+gap:9px;
+padding:8px 14px;
+background:#e3f4e8;
+color:var(--green);
+border-radius:30px;
+font-size:12px;
+font-weight:900;
+margin-bottom:25px
+}
+.hero h1{
+font-size:clamp(48px,7vw,94px);
+line-height:.95;
+letter-spacing:-5px;
+margin-bottom:28px;
+color:var(--dark)
+}
+.hero h1 span{color:var(--green)}
+.hero p{
+font-size:18px;
+max-width:650px;
+color:var(--muted);
+margin-bottom:32px
+}
+.btn{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:15px 23px;
+border-radius:14px;
+text-decoration:none;
+font-weight:900;
+border:none;
+cursor:pointer
+}
+.primary{background:var(--green);color:white}
+.secondary{background:white;color:var(--dark);border:1px solid var(--line);margin-left:10px}
+.globe{
+width:min(480px,80vw);
+aspect-ratio:1;
+border-radius:50%;
+margin:auto;
+position:relative;
+overflow:hidden;
+box-shadow:0 35px 80px rgba(31,143,85,.25);
+background:
+radial-gradient(circle at 30% 25%,#fff 0 2%,transparent 3%),
+radial-gradient(circle at 65% 30%,#82d59b 0 12%,transparent 13%),
+radial-gradient(circle at 38% 65%,#58b87b 0 18%,transparent 19%),
+radial-gradient(circle at 70% 68%,#b8e8c5 0 15%,transparent 16%),
+linear-gradient(135deg,#b9e8c6,#4da873)
+}
+.globe:after{
+content:"";
+position:absolute;
+inset:0;
+border-radius:50%;
+background:repeating-linear-gradient(90deg,transparent 0 55px,rgba(255,255,255,.15) 56px 57px);
+animation:spin 16s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+section{padding:110px 7%}
+.sectiontag{
+font-size:12px;
+font-weight:900;
+color:var(--green);
+letter-spacing:2px;
+margin-bottom:12px
+}
+h2{
+font-size:clamp(36px,5vw,62px);
+line-height:1;
+letter-spacing:-3px;
+margin-bottom:20px
+}
+.intro{max-width:720px;color:var(--muted);font-size:17px}
+.cards{
+margin-top:45px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px
+}
+.card{
+background:white;
+border:1px solid var(--line);
+border-radius:22px;
+padding:27px;
+min-height:200px;
+transition:.3s;
+box-shadow:0 8px 30px rgba(20,70,40,.04)
+}
+.card:hover{
+transform:translateY(-7px);
+box-shadow:0 20px 45px rgba(20,100,50,.12)
+}
+.icon{font-size:34px;margin-bottom:20px}
+.card h3{margin-bottom:9px}
+.card p{color:var(--muted);font-size:14px}
+.join{
+background:var(--dark);
+color:white;
+border-radius:35px;
+padding:70px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center
+}
+.join p{color:#bad2c5;margin-bottom:25px}
+form{display:grid;gap:13px}
+input,select{
+width:100%;
+padding:16px 17px;
+border:1px solid #dcebe2;
+border-radius:13px;
+background:white;
+font-size:15px;
+outline:none
+}
+input:focus,select:focus{border-color:var(--green)}
+.stats{
+background:#eaf6ee
+}
+.statgrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-top:45px
+}
+.stat{
+background:white;
+border:1px solid var(--line);
+border-radius:23px;
+padding:28px;
+cursor:pointer;
+transition:.3s
+}
+.stat:hover{transform:translateY(-5px)}
+.rank{font-size:12px;color:var(--green);font-weight:900}
+.person{
+display:flex;
+align-items:center;
+gap:15px;
+margin:20px 0
+}
+.avatar{
+width:48px;height:48px;
+border-radius:50%;
+display:grid;
+place-items:center;
+background:#dff2e5;
+font-size:23px
+}
+.person small{display:block;color:var(--muted)}
+.number{
+font-size:35px;
+font-weight:900;
+color:var(--dark)
+}
+.stat button{
+border:0;background:none;color:var(--green);font-weight:900;cursor:pointer
+}
+footer{
+padding:45px 7%;
+display:flex;
+justify-content:space-between;
+border-top:1px solid var(--line);
+color:var(--muted);
+font-size:13px
+}
+.modal{
+position:fixed;
+inset:0;
+background:rgba(9,35,24,.55);
+backdrop-filter:blur(8px);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:2000;
+padding:20px
+}
+.modal.show{display:flex}
+.modalbox{
+width:min(600px,100%);
+background:white;
+border-radius:28px;
+padding:35px;
+position:relative
+}
+.close{
+position:absolute;
+right:20px;
+top:18px;
+border:0;background:#edf7f0;
+width:38px;height:38px;
+border-radius:50%;
+cursor:pointer;font-size:20px
+}
+.progress{
+height:9px;
+background:#e7f0ea;
+border-radius:20px;
+overflow:hidden;
+margin:15px 0 25px
+}
+.progress i{
+display:block;height:100%;
+background:var(--green);
+width:72%;
+border-radius:20px
+}
+.toast{
+position:fixed;
+bottom:25px;
+right:25px;
+background:var(--dark);
+color:white;
+padding:15px 20px;
+border-radius:14px;
+display:none;
+z-index:3000
+}
+.toast.show{display:block}
+@media(max-width:900px){
+.hero{grid-template-columns:1fr;text-align:center}
+.hero p{margin-left:auto;margin-right:auto}
+.globe{width:330px}
+.cards{grid-template-columns:1fr 1fr}
+.join{grid-template-columns:1fr;padding:40px 25px}
+.statgrid{grid-template-columns:1fr 1fr}
+.navlinks{display:none}
+}
+@media(max-width:560px){
+section{padding:75px 5%}
+.cards,.statgrid{grid-template-columns:1fr}
+.hero{padding-left:5%;padding-right:5%}
+.hero h1{letter-spacing:-3px}
+.secondary{margin-left:0;margin-top:10px}
+footer{display:block}
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="logo">ERNURVYNX<span> ECO</span></div>
+<div class="navlinks">
+<a href="#home" data-kz="Басты бет" data-ru="Главная" data-en="Home">Басты бет</a>
+<a href="#mission" data-kz="Мақсатымыз" data-ru="Миссия" data-en="Mission">Мақсатымыз</a>
+<a href="#join" data-kz="Қосылу" data-ru="Присоединиться" data-en="Join">Қосылу</a>
+<a href="#people" data-kz="Қауымдастық" data-ru="Сообщество" data-en="Community">Қауымдастық</a>
+</div>
+<button class="lang" onclick="changeLang()">KZ / RU / EN</button>
+</nav>
+
+<main>
+
+<section class="hero" id="home">
+<div>
+<div class="badge">🌱 YOUTH ECO MOVEMENT · 2026</div>
+
+<h1>
+<span>Таза</span><br>
+орта.<br>
+Жасыл<br>
+болашақ.
+</h1>
+
+<p data-kz="ERNURVYNX ECO — табиғатты қорғауға бейжай қарамайтын жастарды біріктіретін цифрлық экологиялық қозғалыс. Бір акциядан үлкен өзгеріс басталады."
+data-ru="ERNURVYNX ECO — цифровое экологическое движение, объединяющее молодых людей, которым небезразлична природа."
+data-en="ERNURVYNX ECO is a digital environmental movement connecting young people who care about nature.">
+ERNURVYNX ECO — табиғатты қорғауға бейжай қарамайтын жастарды біріктіретін цифрлық экологиялық қозғалыс. Бір акциядан үлкен өзгеріс басталады.
+</p>
+
+<a class="btn primary" href="#join">Қауымдастыққа қосылу →</a>
+<a class="btn secondary" href="#mission">Біз не істейміз?</a>
+</div>
+
+<div class="globe"></div>
+</section>
+
+<section id="mission">
+<div class="sectiontag">01 / MISSION</div>
+<h2>Табиғатты қорғау<br>сөзден басталмайды.</h2>
+<p class="intro">
+Біз жастарға нақты әрекет жасауға мүмкіндік береміз:
+қаланы тазалау, ағаш отырғызу, қалдықтарды сұрыптау,
+су ресурстарын қорғау және экологиялық контент жасау.
+</p>
+
+<div class="cards">
+
+<div class="card">
+<div class="icon">🧹</div>
+<h3>Тазалық акциялары</h3>
+<p>Қаладағы саябақтар, аулалар және қоғамдық орындарды бірге тазалаймыз.</p>
+</div>
+
+<div class="card">
+<div class="icon">🌳</div>
+<h3>Ағаш отырғызу</h3>
+<p>Жасыл аймақтарды көбейтіп, болашаққа тірі із қалдырамыз.</p>
+</div>
+
+<div class="card">
+<div class="icon">♻️</div>
+<h3>Қалдықтарды сұрыптау</h3>
+<p>Пластик, қағаз және басқа қалдықтарды дұрыс басқару мәдениетін қалыптастырамыз.</p>
+</div>
+
+<div class="card">
+<div class="icon">💧</div>
+<h3>Су ресурстары</h3>
+<p>Суды үнемдеу және су көздерін қорғау туралы жастар арасында түсіндіру жұмыстарын жүргіземіз.</p>
+</div>
+
+</div>
+</section>
+
+<section class="join" id="join">
+
+<div>
+<div class="sectiontag">02 / JOIN THE MOVEMENT</div>
+<h2>Сенің бір әрекетің — ортақ өзгеріс.</h2>
+<p>
+Қызығушылығыңды таңда. Бізбен бірге экологиялық бастамаларға қатыс.
+</p>
+</div>
+
+<form id="ecoForm">
+
+<input id="name" required placeholder="Атың">
+
+<select id="interest" required>
+<option value="">Қызығушылық бағыты</option>
+<option>Тазалық акциялары</option>
+<option>Ағаш отырғызу</option>
+<option>Қалдықтарды сұрыптау</option>
+<option>Су ресурстары</option>
+<option>Eco Media</option>
+<option>Өз жобам бар</option>
+</select>
+
+<button class="btn primary" type="submit">
+Қауымдастыққа қосылу →
+</button>
+
+</form>
+</section>
+
+<section class="stats" id="people">
+
+<div class="sectiontag">03 / ECO COMMUNITY</div>
+
+<h2>Қозғалысты<br>алға сүйреп жүргендер.</h2>
+
+<p class="intro">
+Бұл бөлімде қауымдастықтың экологиялық белсенділігі көрсетіледі.
+Кез келген карточканы басып, қатысушының көрсеткішін көр.
+</p>
+
+<div class="statgrid">
+
+<div class="stat" onclick="openStat('Аружан','Алматы','Тазалық акциялары',2840)">
+<div class="rank">01</div>
+<div class="person">
+<div class="avatar">🌱</div>
+<div><b>Аружан</b><small>Алматы</small></div>
+</div>
+<div class="number" data-value="2840">0</div>
+<div>eco points</div>
+<button>Толық көрсету →</button>
+</div>
+
+<div class="stat" onclick="openStat('Данияр','Астана','Ағаш отырғызу',2410)">
+<div class="rank">02</div>
+<div class="person">
+<div class="avatar">🌿</div>
+<div><b>Данияр</b><small>Астана</small></div>
+</div>
+<div class="number" data-value="2410">0</div>
+<div>eco points</div>
+<button>Толық көрсету →</button>
+</div>
+
+<div class="stat" onclick="openStat('Мадина','Шымкент','Eco Media',2180)">
+<div class="rank">03</div>
+<div class="person">
+<div class="avatar">🌳</div>
+<div><b>Мадина</b><small>Шымкент</small></div>
+</div>
+<div class="number" data-value="2180">0</div>
+<div>eco points</div>
+<button>Толық көрсету →</button>
+</div>
+
+<div class="stat" onclick="openStat('Әли','Алматы','Қалдықтарды сұрыптау',1920)">
+<div class="rank">04</div>
+<div class="person">
+<div class="avatar">♻️</div>
+<div><b>Әли</b><small>Алматы</small></div>
+</div>
+<div class="number" data-value="1920">0</div>
+<div>eco points</div>
+<button>Толық көрсету →</button>
+</div>
+
+<div class="stat" onclick="openStat('Айша','Тараз','Су ресурстары',1740)">
+<div class="rank">05</div>
+<div class="person">
+<div class="avatar">💧</div>
+<div><b>Айша</b><small>Тараз</small></div>
+</div>
+<div class="number" data-value="1740">0</div>
+<div>eco points</div>
+<button>Толық көрсету →</button>
+</div>
+
+<div class="stat" onclick="openStat('Нұрлан','Қарағанды','Өз жобам бар',1560)">
+<div class="rank">06</div>
+<div class="person">
+<div class="avatar">🌎</div>
+<div><b>Нұрлан</b><small>Қарағанды</small></div>
+</div>
+<div class="number" data-value="1560">0</div>
+<div>eco points</div>
+<button>Толық көрсету →</button>
+</div>
+
+</div>
+</section>
+
+</main>
+
+<footer>
+<div><b>ERNURVYNX ECO</b> — Youth for a greener future.</div>
+<div>© 2026 ERNURVYNX</div>
+</footer>
+
+<div class="modal" id="modal">
+<div class="modalbox">
+<button class="close" onclick="closeStat()">×</button>
+<div class="sectiontag">ECO PROFILE</div>
+<h2 id="modalName">Аружан</h2>
+<p id="modalCity"></p>
+<br>
+<b>Экологиялық белсенділік</b>
+<div class="progress"><i></i></div>
+<h3 id="modalPoints">2,840 ECO POINTS</h3>
+<p id="modalInterest"></p>
+<br>
+<p style="color:#70847a">
+Әр қатысу, әр акция және әр экологиялық бастама
+қоғамдық өзгеріске қосылған үлес ретінде есептеледі.
+</p>
+</div>
+</div>
+
+<div class="toast" id="toast">WhatsApp ашылуда...</div>
+
+<script>
+let lang="kz";
+
+function changeLang(){
+const langs=["kz","ru","en"];
+lang=langs[(langs.indexOf(lang)+1)%langs.length];
+
+document.querySelectorAll("[data-kz]").forEach(el=>{
+el.textContent=el.dataset[lang];
+});
+
+const select=document.getElementById("interest");
+
+if(lang==="kz"){
+document.documentElement.lang="kk";
+select.options[0].text="Қызығушылық бағыты";
+}
+if(lang==="ru"){
+document.documentElement.lang="ru";
+select.options[0].text="Направление интереса";
+}
+if(lang==="en"){
+document.documentElement.lang="en";
+select.options[0].text="Interest area";
+}
+}
+
+function openStat(name,city,interest,points){
+document.getElementById("modalName").textContent=name;
+document.getElementById("modalCity").textContent=city;
+document.getElementById("modalInterest").textContent="Бағыты: "+interest;
+document.getElementById("modalPoints").textContent=
+points.toLocaleString()+" ECO POINTS";
+document.getElementById("modal").classList.add("show");
+}
+
+function closeStat(){
+document.getElementById("modal").classList.remove("show");
+}
+
+document.getElementById("modal").addEventListener("click",e=>{
+if(e.target.id==="modal")closeStat();
+});
+
+function animateNumbers(){
+document.querySelectorAll(".number").forEach(el=>{
+const target=Number(el.dataset.value);
+let current=0;
+const step=Math.max(1,Math.ceil(target/70));
+
+function run(){
+current+=step;
+if(current>=target){
+current=target;
+el.textContent=current.toLocaleString();
+return;
+}
+el.textContent=current.toLocaleString();
+requestAnimationFrame(run);
+}
+run();
+});
+}
+
+window.addEventListener("load",animateNumbers);
+
+document.getElementById("ecoForm").addEventListener("submit",function(e){
+e.preventDefault();
+
+const name=document.getElementById("name").value.trim();
+const interest=document.getElementById("interest").value;
+
+if(!name||!interest)return;
+
+localStorage.setItem("eco_user",JSON.stringify({
+name:name,
+interest:interest
+}));
+
+const message=
+`Сәлеметсіз бе! 🌱%0A%0A`+
+`Мен ERNURVYNX ECO қауымдастығына қосылғым келеді.%0A%0A`+
+`Атым: ${name}%0A`+
+`Қызығушылық бағытым: ${interest}%0A%0A`+
+`Экологиялық акцияларға қатысуға дайынмын! 🌍`;
+
+const whatsappNumber="87716268766";
+
+document.getElementById("toast").classList.add("show");
+
+setTimeout(()=>{
+window.open(
+"https://wa.me/"+whatsappNumber+"?text="+message,
+"_blank"
+);
+document.getElementById("toast").classList.remove("show");
+},500);
+});
+</script>
+
+</body>
+</html>
